@@ -28,10 +28,10 @@ public class PhotoCaptureScript : MonoBehaviour
         targetTexture = new Texture2D(cameraResolution.width, cameraResolution.height);
 
         // Create a PhotoCapture object
-        PhotoCapture.CreateAsync(false, delegate (PhotoCapture captureObject) {
+        PhotoCapture.CreateAsync(true, delegate (PhotoCapture captureObject) {
             photoCaptureObject = captureObject;
             CameraParameters cameraParameters = new CameraParameters();
-            cameraParameters.hologramOpacity = 0.0f;
+            cameraParameters.hologramOpacity = 1.0f;
             cameraParameters.cameraResolutionWidth = cameraResolution.width;
             cameraParameters.cameraResolutionHeight = cameraResolution.height;
             cameraParameters.pixelFormat = CapturePixelFormat.BGRA32;
