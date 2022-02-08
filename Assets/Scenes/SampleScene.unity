@@ -713,7 +713,7 @@ MonoBehaviour:
     m_Bits: 4294967291
   stabilizer:
     storedStabilitySamples: 60
-  gazeTransform: {fileID: 0}
+  gazeTransform: {fileID: 963194228}
   minHeadVelocityThreshold: 0.5
   maxHeadVelocityThreshold: 2
 --- !u!114 &963194232

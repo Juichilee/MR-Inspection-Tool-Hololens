@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections;
 using System.Linq;
 using UnityEngine.Windows.WebCam;
+using System.Threading;
+using System.Threading.Tasks;
 
 public class PhotoCaptureScript : MonoBehaviour
 {
@@ -12,6 +14,9 @@ public class PhotoCaptureScript : MonoBehaviour
     public int screenSize = 1;
 
     Renderer quadRenderer;
+
+    Task awaitTask = null;
+    bool taskEnded = true;
 
     // Use this for initialization
     void Start()
@@ -39,19 +44,30 @@ public class PhotoCaptureScript : MonoBehaviour
             // Activate the camera
             photoCaptureObject.StartPhotoModeAsync(cameraParameters, delegate (PhotoCapture.PhotoCaptureResult result) {
                 // Take a picture
-                photoCaptureObject.TakePhotoAsync(OnCapturedPhotoToMemory);
+                //photoCaptureObject.TakePhotoAsync(OnCapturedPhotoToMemory);
             });
         });
     }
 
     private void Update()
     {
+        if(taskEnded == true)
+        {
+            awaitTask = photoTask();
+        }
+        //Debug.Log("Update Thread!");
+    }
+
+    public async Task photoTask()
+    {
         // Take a picture
-        if (photoCaptureObject != null)
+        taskEnded = false;
+        await Task.Delay(5000);
+        if(photoCaptureObject != null)
         {
             photoCaptureObject.TakePhotoAsync(OnCapturedPhotoToMemory);
         }
-
+        taskEnded = true;
     }
 
     void OnCapturedPhotoToMemory(PhotoCapture.PhotoCaptureResult result, PhotoCaptureFrame photoCaptureFrame)
