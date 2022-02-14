@@ -437,7 +437,7 @@ MonoBehaviour:
   - {fileID: 6507199559640742980}
   - {fileID: -4119643002248141625}
   m_renderMode: 1
-  m_depthSubmissionMode: 2
+  m_depthSubmissionMode: 1
 --- !u!114 &2532758206547190086
 MonoBehaviour:
   m_ObjectHideFlags: 0
