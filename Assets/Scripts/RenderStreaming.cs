@@ -85,7 +85,7 @@ namespace Unity.RenderStreaming
         private void Update()
         {
 
-            if (Input.GetKeyDown(KeyCode.S))
+            if (Input.GetKeyDown(KeyCode.Z))
             {
                 if (signalingService == null)
                 {
@@ -104,7 +104,7 @@ namespace Unity.RenderStreaming
                 }
                 signalingService.Start();
             }
-            if (Input.GetKeyDown(KeyCode.T))
+            if (Input.GetKeyDown(KeyCode.X))
             {
                 if (string.IsNullOrEmpty(connectionId) ||
                     !mapConnectionIdAndPeer.TryGetValue(connectionId, out var pc))
