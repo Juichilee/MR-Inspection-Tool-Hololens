@@ -131,7 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enabled: 1
   MinDistance: 0
-  MaxDistance: 1.27
+  MaxDistance: 2.7932005
 --- !u!114 &114894276943703578
 MonoBehaviour:
   m_ObjectHideFlags: 0
