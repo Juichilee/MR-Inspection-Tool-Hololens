@@ -1,6 +1,16 @@
 {
     "name": "RealSense",
-    "references": [],
+    "rootNamespace": "",
+    "references": [
+        "GUID:8b7cc3e86d77403b8b984c08cbaeaf8f"
+    ],
     "includePlatforms": [],
-    "excludePlatforms": []
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

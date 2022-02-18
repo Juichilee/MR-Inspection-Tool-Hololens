@@ -1,4 +1,5 @@
-﻿using Intel.RealSense;
+﻿using Microsoft.MixedReality.Toolkit.UI;
+using Intel.RealSense;
 using UnityEngine;
 
 [ProcessingBlockDataAttribute(typeof(ThresholdFilter))]
@@ -45,6 +46,10 @@ public class RsThresholdFilter : RsProcessingBlock
         UpdateOptions();
 
         return _pb.Process(frame);
+    }
+
+    public void onValueChangedMax(SliderEventData eventData) {
+        MaxDistance = eventData.NewValue * 4;
     }
 
     public void SetMinDistance(float v) {
