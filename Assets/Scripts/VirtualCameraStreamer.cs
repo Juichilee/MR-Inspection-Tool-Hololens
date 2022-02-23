@@ -2,19 +2,19 @@ using Unity.WebRTC;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Camera))]
 public class VirtualCameraStreamer : MonoBehaviour
 {
-    [SerializeField, Tooltip("Streaming size should match display aspect ratio")]
+    //[SerializeField, Tooltip("Streaming size should match display aspect ratio")]
     private Vector2Int streamingSize = new Vector2Int(512, 512);
 
-    private Camera cameraStreamer;
+    public Camera cameraStreamer;
     private VideoStreamTrack track;
     public Renderer image;
+    public RenderTexture rt;
 
     void Awake()
     {
-        cameraStreamer = GetComponent<Camera>();
+        //cameraStreamer = GetComponent<Camera>();
     }
 
     public float rotSpeed = 250;
@@ -51,8 +51,6 @@ public class VirtualCameraStreamer : MonoBehaviour
         }
         return RenderTextureFormat.Default;
     }
-
-    public RenderTexture rt;
 
     void OnEnable()
     {

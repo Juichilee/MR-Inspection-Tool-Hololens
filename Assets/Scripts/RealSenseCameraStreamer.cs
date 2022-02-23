@@ -11,15 +11,24 @@ public class RealSenseCameraStreamer : MonoBehaviour
     public Renderer rend;
     public Material rgbMat;
 
+    [Range(0.0f, 1.0f)]
+    public float thresholdVal = 0.5f;
+
+    [Range(0.0f, 1.0f)]
+    public float focalVal = 0.5f;
+    
     public void rsTFsetMax(SliderEventData eventData) 
     {
-       rsTF.SetMaxDistance(eventData.NewValue * 4);
+        //rsTF.SetMaxDistance(eventData.NewValue * 4);
+        rsTF.SetMaxDistance(thresholdVal * 4);
+
     }
 
     public void canvasSetFocal(SliderEventData eventData)
     {
-        Debug.Log("Hello World");
-        canvas.planeDistance = eventData.NewValue * 3 + 0.5f;
+        //canvas.planeDistance = eventData.NewValue * 3 + 0.5f;
+        canvas.planeDistance = focalVal * 3 + 0.5f;
+
     }
 
     private void Awake()
@@ -46,6 +55,8 @@ public class RealSenseCameraStreamer : MonoBehaviour
 
     private void Update()
     {
+        rsTF.SetMaxDistance(thresholdVal * 4);
+        canvas.planeDistance = focalVal * 3 + 0.5f;
         rend.material.mainTexture = rgbMat.mainTexture;
     }
 }
