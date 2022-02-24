@@ -1,6 +1,7 @@
 using Unity.WebRTC;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.RenderStreaming;
 
 public class VirtualCameraStreamer : MonoBehaviour
 {
@@ -65,7 +66,7 @@ public class VirtualCameraStreamer : MonoBehaviour
 
         //track = cameraStreamer.CaptureStreamTrack(streamingSize.x, streamingSize.y, 1000000);
         image.material.mainTexture = track.Texture;
-        //RenderStreaming.Instance.AddVideoStreamTrack(track);
+        RenderStreaming.Instance.AddVideoStreamTrack(track);
 
         desiredRot = transform.eulerAngles.z;
     }
