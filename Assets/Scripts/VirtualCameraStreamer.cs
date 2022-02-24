@@ -9,7 +9,6 @@ public class VirtualCameraStreamer : MonoBehaviour
     private Vector2Int streamingSize = new Vector2Int(512, 512);
 
     public Camera cameraStreamer;
-    private VideoStreamTrack track;
     public Renderer image;
     public RenderTexture rt;
 
@@ -61,12 +60,8 @@ public class VirtualCameraStreamer : MonoBehaviour
 
         // Create a track from the RenderTexture
         rt = new RenderTexture(streamingSize.x, streamingSize.y, 0, format);
-        track = new VideoStreamTrack("video", rt);
         cameraStreamer.targetTexture = rt;
-
-        //track = cameraStreamer.CaptureStreamTrack(streamingSize.x, streamingSize.y, 1000000);
-        image.material.mainTexture = track.Texture;
-        RenderStreaming.Instance.AddVideoStreamTrack(track);
+        image.material.mainTexture = rt;
 
         desiredRot = transform.eulerAngles.z;
     }
