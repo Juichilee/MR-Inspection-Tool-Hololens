@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 26980319}
   - component: {fileID: 26980321}
-  - component: {fileID: 26980320}
   m_Layer: 0
   m_Name: ResultsCamera
   m_TagString: Untagged
@@ -155,14 +154,6 @@ Transform:
   m_Father: {fileID: 1220058925}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &26980320
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 26980318}
-  m_Enabled: 1
 --- !u!20 &26980321
 Camera:
   m_ObjectHideFlags: 0
@@ -269,7 +260,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &63886706
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -421,7 +412,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!23 &163533244
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2197,6 +2188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c7a9aceaa1a7484abae41e26f406bf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ri: {fileID: 2061194081}
   cameraStreamer: {fileID: 1719531950}
   image: {fileID: 63886707}
   rt: {fileID: 0}
@@ -4364,7 +4356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Source: {fileID: 114866818835404687}
   _stream: 2
-  _format: 5
+  _format: 8
   _streamIndex: 0
   filterMode: 1
   textureBinding:
@@ -4469,7 +4461,7 @@ MonoBehaviour:
       Width: 640
       Height: 480
     - Stream: 2
-      Format: 5
+      Format: 8
       Framerate: 30
       StreamIndex: 0
       Width: 1280
