@@ -8,11 +8,11 @@ public class VirtualCameraStreamer : MonoBehaviour
     //[SerializeField, Tooltip("Streaming size should match display aspect ratio")]
     private Vector2Int streamingSize = new Vector2Int(512, 512);
 
-    public RawImage ri;
     public Camera cameraStreamer;
     private VideoStreamTrack track;
     public Renderer image;
-    public RenderTexture rt;
+    //public RenderTexture rt;
+    public Material RS_Mat;
 
     void Awake()
     {
@@ -26,15 +26,16 @@ public class VirtualCameraStreamer : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButton(0))
-        {
-            if (Input.mousePosition.x > Screen.width / 2) desiredRot -= rotSpeed * Time.deltaTime;
-            else desiredRot += rotSpeed * Time.deltaTime;
-        }
+        //if (Input.GetMouseButton(0))
+        //{
+        //    if (Input.mousePosition.x > Screen.width / 2) desiredRot -= rotSpeed * Time.deltaTime;
+        //    else desiredRot += rotSpeed * Time.deltaTime;
+        //}
 
-        var desiredRotQ = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, desiredRot);
-        transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotQ, Time.deltaTime * damping);
+        //var desiredRotQ = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, desiredRot);
+        //transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotQ, Time.deltaTime * damping);
 
+        //image.material.mainTexture = ri.texture;
     }
     public static RenderTextureFormat GetSupportedRenderTextureFormat(UnityEngine.Rendering.GraphicsDeviceType type)
     {
@@ -60,22 +61,24 @@ public class VirtualCameraStreamer : MonoBehaviour
         var gfxType = SystemInfo.graphicsDeviceType;
         var format = GetSupportedRenderTextureFormat(gfxType);
 
-
+        
 
         // Create a track from the RenderTexture
         //rt = new RenderTexture(streamingSize.x, streamingSize.y, 0, format);
-        rt = new RenderTexture(streamingSize.x, streamingSize.y, 0, format);
-        RenderTexture.active = rt;
-        Graphics.Blit(ri.mainTexture, rt);
+        //RenderTexture.active = rt;
+        //Graphics.Blit(ri.mainTexture, rt);
 
-        track = new VideoStreamTrack("video", rt);
+        image.material = RS_Mat;
+
+        //track = new VideoStreamTrack("video", rt);
         //cameraStreamer.targetTexture = rt;
 
         //track = cameraStreamer.CaptureStreamTrack(streamingSize.x, streamingSize.y, 1000000);
-        image.material.mainTexture = track.Texture;
-        RenderStreaming.Instance.AddVideoStreamTrack(track);
+        //image.material.mainTexture = track.Texture;
+        //image.material.mainTexture = ri.texture;
+        //RenderStreaming.Instance.AddVideoStreamTrack(track);
 
-        desiredRot = transform.eulerAngles.z;
+        //desiredRot = transform.eulerAngles.z;
     }
 
     void OnDisable()
