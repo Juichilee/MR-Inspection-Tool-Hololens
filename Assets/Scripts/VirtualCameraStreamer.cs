@@ -8,7 +8,6 @@ public class VirtualCameraStreamer : MonoBehaviour
     //[SerializeField, Tooltip("Streaming size should match display aspect ratio")]
     private Vector2Int streamingSize = new Vector2Int(512, 512);
 
-    public RawImage ri;
     public Camera cameraStreamer;
     private VideoStreamTrack track;
     public Renderer image;
@@ -60,16 +59,10 @@ public class VirtualCameraStreamer : MonoBehaviour
         var gfxType = SystemInfo.graphicsDeviceType;
         var format = GetSupportedRenderTextureFormat(gfxType);
 
-
-
         // Create a track from the RenderTexture
-        //rt = new RenderTexture(streamingSize.x, streamingSize.y, 0, format);
         rt = new RenderTexture(streamingSize.x, streamingSize.y, 0, format);
-        RenderTexture.active = rt;
-        Graphics.Blit(ri.mainTexture, rt);
-
         track = new VideoStreamTrack("video", rt);
-        //cameraStreamer.targetTexture = rt;
+        cameraStreamer.targetTexture = rt;
 
         //track = cameraStreamer.CaptureStreamTrack(streamingSize.x, streamingSize.y, 1000000);
         image.material.mainTexture = track.Texture;
