@@ -8,7 +8,7 @@ public class RealSenseCameraStreamer : MonoBehaviour
 {
     public RsThresholdFilter rsTF;
     public Renderer rend;
-    public Material rgbMat;
+    public Material rsMat;
 
     [Range(0, 1)]
     [SerializeField]
@@ -33,10 +33,15 @@ public class RealSenseCameraStreamer : MonoBehaviour
         ThresholdVal = eventData.NewValue;
     }
 
+    private void Start()
+    {
+        rend.material = rsMat;
+    }
+
     private void Update()
     {
         // Debug Purpose
         ThresholdVal = thresholdVal;
-        rend.material.mainTexture = rgbMat.mainTexture;
+        //rend.material.mainTexture = rgbMat.mainTexture;
     }
 }
