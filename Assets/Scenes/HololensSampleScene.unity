@@ -340,7 +340,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 63886705}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.1129999, y: -0.366, z: 2.098}
+  m_LocalPosition: {x: -1.384, y: -0.366, z: 2.098}
   m_LocalScale: {x: 1, y: -1, z: 0.099999994}
   m_Children: []
   m_Father: {fileID: 1907370653}
@@ -492,8 +492,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 163533243}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.064, y: -0.366, z: 2.098}
-  m_LocalScale: {x: 1, y: -1, z: 0.099999994}
+  m_LocalPosition: {x: 0.331, y: -0.239, z: 2.098}
+  m_LocalScale: {x: 2, y: 1.25, z: 0.099999994}
   m_Children: []
   m_Father: {fileID: 1907370653}
   m_RootOrder: 2
@@ -1490,7 +1490,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &808475534
 Transform:
   m_ObjectHideFlags: 0
@@ -1969,8 +1969,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rsTF: {fileID: 114613456056826128, guid: 6f1f4d0a8f3f052419ca9059315d7fe0, type: 2}
-  rend: {fileID: 0}
-  rgbMat: {fileID: 0}
+  rend: {fileID: 163533244}
+  rsMat: {fileID: 2100000, guid: 054de4d9b22596d4a8c4f63dd32692a8, type: 2}
   thresholdVal: 0.5
 --- !u!114 &1202283658
 MonoBehaviour:
@@ -3989,13 +3989,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Source: {fileID: 114866818835404687}
   _stream: 2
-  _format: 5
+  _format: 7
   _streamIndex: 0
   filterMode: 1
   textureBinding:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2100000, guid: 8c87e72b38c55bb4bba154ac5e529534, type: 2}
+      - m_Target: {fileID: 2100000, guid: 054de4d9b22596d4a8c4f63dd32692a8, type: 2}
         m_TargetAssemblyTypeName: UnityEngine.Material, UnityEngine
         m_MethodName: set_mainTexture
         m_Mode: 0
