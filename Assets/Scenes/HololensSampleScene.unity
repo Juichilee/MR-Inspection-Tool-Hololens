@@ -432,7 +432,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: eda6d0949daf02f4788b277a240a5ce2, type: 2}
+  - {fileID: 2100000, guid: 054de4d9b22596d4a8c4f63dd32692a8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -679,7 +679,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &385441305
 Transform:
   m_ObjectHideFlags: 0
@@ -3603,7 +3603,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1308323762867094, guid: a2bade7ff40ff92409855b062870dccd, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4093320342193112, guid: a2bade7ff40ff92409855b062870dccd, type: 3}
       propertyPath: m_RootOrder
@@ -4065,7 +4065,7 @@ MonoBehaviour:
       Width: 640
       Height: 480
     - Stream: 2
-      Format: 5
+      Format: 7
       Framerate: 30
       StreamIndex: 0
       Width: 640

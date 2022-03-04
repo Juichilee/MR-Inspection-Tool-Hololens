@@ -50,9 +50,14 @@ public class InputManager : MonoBehaviour
         // Get a valid RendertextureFormat
         var gfxType = SystemInfo.graphicsDeviceType;
         RenderTextureFormat format = GetSupportedRenderTextureFormat(gfxType);
-        Debug.Log("Format: " + format);
-        RenderTexture rend = new RenderTexture(streamingSize.x, streamingSize.y, 0, UnityEngine.Experimental.Rendering.GraphicsFormat.R8G8B8A8_UNorm);
-        inputMat.mainTexture = rend;
+        Debug.Log("RenderTextureFormat: " + format);
+
+        RenderTexture inputRT = (RenderTexture)inputMat.mainTexture;
+
+        Debug.Log("RenderTextureFormat: " + format);
+        Debug.Log("InputRTFormat: " + inputRT.graphicsFormat);
+        //RenderTexture rend = new RenderTexture(streamingSize.x, streamingSize.y, 0, UnityEngine.Experimental.Rendering.GraphicsFormat.R8G8B8A8_UNorm);
+        //inputMat.mainTexture = rend;
         image.material = inputMat;
         //VirtualCameraStreamer = this.GetComponent<VirtualCameraStreamer>();
         //RealCameraStreamer = this.GetComponent<RealSenseCameraStreamer>();
