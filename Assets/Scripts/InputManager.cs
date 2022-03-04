@@ -17,6 +17,7 @@ public class InputManager : MonoBehaviour
     public Vector2Int streamingSize = new Vector2Int(512, 512);
     public Material inputMat;
     public Renderer image;
+    public Renderer processedImage;
     //public float depthThreshold;
 
     private VideoStreamTrack track;
@@ -52,17 +53,23 @@ public class InputManager : MonoBehaviour
         RenderTextureFormat format = GetSupportedRenderTextureFormat(gfxType);
         Debug.Log("RenderTextureFormat: " + format);
 
-        RenderTexture inputRT = (RenderTexture)inputMat.mainTexture;
+        //RenderTexture rend = (RenderTexture)inputMat.mainTexture;
+        //RenderTexture rend = new RenderTexture(streamingSize.x, streamingSize.y, 0, UnityEngine.Experimental.Rendering.GraphicsFormat.R8G8B8A8_UNorm);
+        RenderTexture rend = new RenderTexture(streamingSize.x, streamingSize.y, 0, UnityEngine.Experimental.Rendering.GraphicsFormat.B8G8R8A8_UNorm);
+
+        inputMat.mainTexture = rend;
 
         Debug.Log("RenderTextureFormat: " + format);
-        Debug.Log("InputRTFormat: " + inputRT.graphicsFormat);
-        //RenderTexture rend = new RenderTexture(streamingSize.x, streamingSize.y, 0, UnityEngine.Experimental.Rendering.GraphicsFormat.R8G8B8A8_UNorm);
-        //inputMat.mainTexture = rend;
+        Debug.Log("InputRTFormat: " + rend.graphicsFormat);
+
+        //Color[] c = 
+        //RenderTexture processedRend = new RenderTexture(streamingSize.x, streamingSize.y, 0, UnityEngine.Experimental.Rendering.GraphicsFormat.B8G8R8A8_UNorm);
         image.material = inputMat;
         //VirtualCameraStreamer = this.GetComponent<VirtualCameraStreamer>();
         //RealCameraStreamer = this.GetComponent<RealSenseCameraStreamer>();
 
     }
+
     // Start is called before the first frame update. Used to pass information between referenced scripts
     void Start()
     {
