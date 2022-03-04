@@ -16,13 +16,17 @@ public class InputManager : MonoBehaviour
 
     public Vector2Int streamingSize = new Vector2Int(512, 512);
     public Material inputMat;
+    public Material cropMat;
     public Renderer image;
+    public Renderer cropImage;
     public Renderer processedImage;
     //public float depthThreshold;
 
     private VideoStreamTrack track;
 
     //private RenderTexture finalRenderTexture;
+
+    public Camera CropCamera;
 
     bool trackAdded = false;
 
@@ -65,6 +69,14 @@ public class InputManager : MonoBehaviour
         //Color[] c = 
         //RenderTexture processedRend = new RenderTexture(streamingSize.x, streamingSize.y, 0, UnityEngine.Experimental.Rendering.GraphicsFormat.B8G8R8A8_UNorm);
         image.material = inputMat;
+        cropImage.material = inputMat;
+
+        RenderTexture cropRend = new RenderTexture(streamingSize.x, streamingSize.y, 0, UnityEngine.Experimental.Rendering.GraphicsFormat.B8G8R8A8_UNorm);
+        CropCamera.targetTexture = cropRend;
+        cropMat.mainTexture = cropRend;
+
+        processedImage.material = cropMat;
+
         //VirtualCameraStreamer = this.GetComponent<VirtualCameraStreamer>();
         //RealCameraStreamer = this.GetComponent<RealSenseCameraStreamer>();
 
@@ -81,8 +93,8 @@ public class InputManager : MonoBehaviour
     {
         if (!trackAdded)
         {
-            //track = new VideoStreamTrack("video", VirtualCameraStreamer.rt);
-            //RenderStreaming.Instance.AddVideoStreamTrack(track);
+            track = new VideoStreamTrack("video", cropMat.mainTexture);
+            RenderStreaming.Instance.AddVideoStreamTrack(track);
             trackAdded = true;
         }
         
