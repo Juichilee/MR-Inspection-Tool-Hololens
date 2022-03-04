@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 26980319}
   - component: {fileID: 26980321}
-  - component: {fileID: 26980320}
   m_Layer: 0
   m_Name: ResultsCamera
   m_TagString: Untagged
@@ -155,14 +154,6 @@ Transform:
   m_Father: {fileID: 1220058925}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &26980320
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 26980318}
-  m_Enabled: 1
 --- !u!20 &26980321
 Camera:
   m_ObjectHideFlags: 0
@@ -688,7 +679,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &385441305
 Transform:
   m_ObjectHideFlags: 0
@@ -1893,7 +1884,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1202283655}
   - component: {fileID: 1202283654}
-  - component: {fileID: 1202283658}
   - component: {fileID: 1202283657}
   - component: {fileID: 1202283656}
   m_Layer: 0
@@ -1915,11 +1905,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca35e60ed3148e646a6dbc54302611a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectRecognitionModeOn: 0
-  virtualObjectRecognitionModeOn: 0
-  realSensePointCloudOverlayOn: 0
   streamingSize: {x: 512, y: 512}
-  depthThreshold: 0
+  inputMat: {fileID: 2100000, guid: 054de4d9b22596d4a8c4f63dd32692a8, type: 2}
+  image: {fileID: 163533244}
 --- !u!4 &1202283655
 Transform:
   m_ObjectHideFlags: 0
@@ -1963,7 +1951,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1202283653}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8d17f761a4aafbe478781b2f650a9894, type: 3}
   m_Name: 
@@ -1972,23 +1960,6 @@ MonoBehaviour:
   rend: {fileID: 163533244}
   rsMat: {fileID: 2100000, guid: 054de4d9b22596d4a8c4f63dd32692a8, type: 2}
   thresholdVal: 0.5
---- !u!114 &1202283658
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1202283653}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c7a9aceaa1a7484abae41e26f406bf8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraStreamer: {fileID: 1719531950}
-  image: {fileID: 63886707}
-  rt: {fileID: 0}
-  rotSpeed: 250
-  damping: 10
 --- !u!1 &1220058920
 GameObject:
   m_ObjectHideFlags: 0
@@ -3632,7 +3603,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1308323762867094, guid: a2bade7ff40ff92409855b062870dccd, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4093320342193112, guid: a2bade7ff40ff92409855b062870dccd, type: 3}
       propertyPath: m_RootOrder
