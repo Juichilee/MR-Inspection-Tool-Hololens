@@ -66,8 +66,13 @@ namespace Unity.RenderStreaming.Signaling
 
         private void OnDetection(SocketIOResponse e)
         {
+            //var f = e.get
             string json = e.ToString();
-            Debug.Log(json);
+            var content = json.Substring(1, json.Length - 2);
+
+            string[] classes = JsonUtility.FromJson<LabelInfo>(content).pred_classes;
+            Debug.Log($"JSON String: {content}");
+            Debug.Log($"First Pred: {classes[0]}");
         }
 
         private void WSCreate()
