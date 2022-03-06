@@ -69,10 +69,7 @@ namespace Unity.RenderStreaming.Signaling
             //var f = e.get
             string json = e.ToString();
             var content = json.Substring(1, json.Length - 2);
-
-            string[] classes = JsonUtility.FromJson<LabelInfo>(content).pred_classes;
-            Debug.Log($"JSON String: {content}");
-            Debug.Log($"First Pred: {classes[0]}");
+            LabelManagerScript.SharedInstance.ProcessLabelJSON(content);
         }
 
         private void WSCreate()

@@ -14,7 +14,7 @@ public class InputManager : MonoBehaviour
     //public bool virtualObjectRecognitionModeOn = false;
     //public bool realSensePointCloudOverlayOn = false;
 
-    public Vector2Int streamingSize = new Vector2Int(512, 512);
+    public Vector2Int streamingSize;
     public Material inputMat;
     public Material cropMat;
     public Renderer image;
@@ -51,6 +51,7 @@ public class InputManager : MonoBehaviour
     private void Awake()  //Used to initialize any variables or gams state before the game starts. Only called once
     {
         _InputManagerInstance = this;
+        streamingSize = new Vector2Int(512, 512);
 
         // Get a valid RendertextureFormat
         var gfxType = SystemInfo.graphicsDeviceType;
@@ -59,7 +60,7 @@ public class InputManager : MonoBehaviour
 
         //RenderTexture rend = (RenderTexture)inputMat.mainTexture;
         //RenderTexture rend = new RenderTexture(streamingSize.x, streamingSize.y, 0, UnityEngine.Experimental.Rendering.GraphicsFormat.R8G8B8A8_UNorm);
-        RenderTexture rend = new RenderTexture(streamingSize.x, streamingSize.y, 0, UnityEngine.Experimental.Rendering.GraphicsFormat.B8G8R8A8_UNorm);
+        RenderTexture rend = new RenderTexture(1280, 720, 0, UnityEngine.Experimental.Rendering.GraphicsFormat.B8G8R8A8_UNorm);
 
         inputMat.mainTexture = rend;
 
@@ -97,6 +98,7 @@ public class InputManager : MonoBehaviour
             RenderStreaming.Instance.AddVideoStreamTrack(track);
             trackAdded = true;
         }
+        //Debug.Log("MouisePos: "+ Input.mousePosition);
         
     }
 
