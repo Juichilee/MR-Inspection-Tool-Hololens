@@ -16,6 +16,7 @@ public class LabelManagerScript : MonoBehaviour
     private void Awake()
     {
         SharedInstance = this;
+        RSCameraView.aspect = 1.0f;
     }
     // Start is called before the first frame update
     void Start()
@@ -66,10 +67,11 @@ public class LabelManagerScript : MonoBehaviour
 
     }
 
-    Vector3 testPos = new Vector3(256, 256, 0);
+    Vector3 testPos = new Vector3(0, 0, 0);
     // Update is called once per frame
     void Update()
     {
+
         Ray labelRay = RSCameraView.ScreenPointToRay(testPos);
         Vector3 start = RSCameraView.transform.position;
         Vector3 end = labelRay.GetPoint(10000f);
