@@ -773,6 +773,68 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1001 &477007774
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1303737169}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: ab583b8ecc5918744b8e112f13c0d445, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ab583b8ecc5918744b8e112f13c0d445, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ab583b8ecc5918744b8e112f13c0d445, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ab583b8ecc5918744b8e112f13c0d445, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ab583b8ecc5918744b8e112f13c0d445, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ab583b8ecc5918744b8e112f13c0d445, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ab583b8ecc5918744b8e112f13c0d445, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.000000030908623
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ab583b8ecc5918744b8e112f13c0d445, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.000000030908623
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ab583b8ecc5918744b8e112f13c0d445, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ab583b8ecc5918744b8e112f13c0d445, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ab583b8ecc5918744b8e112f13c0d445, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ab583b8ecc5918744b8e112f13c0d445, type: 3}
+      propertyPath: m_Name
+      value: Locator
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ab583b8ecc5918744b8e112f13c0d445, type: 3}
+--- !u!4 &477007775 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ab583b8ecc5918744b8e112f13c0d445, type: 3}
+  m_PrefabInstance: {fileID: 477007774}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &494902034
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2236,7 +2298,7 @@ Transform:
   m_Children:
   - {fileID: 1845474707}
   m_Father: {fileID: 1303737169}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &1272544361
 Camera:
@@ -2290,7 +2352,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: d02c3fcf4709283479e5f213e81ca600, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d02c3fcf4709283479e5f213e81ca600, type: 3}
       propertyPath: m_LocalScale.x
@@ -2351,6 +2413,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d02c3fcf4709283479e5f213e81ca600, type: 3}
       propertyPath: m_Name
       value: RealSense
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d02c3fcf4709283479e5f213e81ca600, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d02c3fcf4709283479e5f213e81ca600, type: 3}
@@ -2523,6 +2589,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0.177}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 477007775}
   - {fileID: 875388614}
   - {fileID: 1272544360}
   m_Father: {fileID: 0}
