@@ -470,6 +470,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 683731866780316538, guid: 2b76ccb8a4504484e939444d20d98d95, type: 3}
+      propertyPath: requireFlatHand
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 683731866780316539, guid: 2b76ccb8a4504484e939444d20d98d95, type: 3}
       propertyPath: m_Name
       value: HandMenu_Large_AutoWorldLock_On_HandDrop
