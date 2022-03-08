@@ -2,12 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
+using TMPro;
 
 public class LabelManagerScript : MonoBehaviour
 {
+    public struct BoundingBoxProperties
+    {
+        public float width;
+        public float height;
+        public string label;
+    }
+
     public static LabelManagerScript SharedInstance;
     public List<GameObject> pooledObjects;
+    private List<GameObject> pooledBoxs;
     public GameObject objectToPool;
+    public GameObject BoundingBox;
     public int AmountToPool;
 
     public Transform RSTransform;
@@ -25,29 +35,37 @@ public class LabelManagerScript : MonoBehaviour
     {
         textureSize = InputManager._InputManagerInstance.streamingSize;
         pooledObjects = new List<GameObject>();
+        pooledBoxs = new List<GameObject>();
         GameObject tmp;
+        GameObject tmpBox;
         for(int i = 0; i < AmountToPool; i++)
         {
             tmp = Instantiate(objectToPool);
             tmp.SetActive(false);
             pooledObjects.Add(tmp);
+
+            tmpBox = Instantiate(BoundingBox);
+            tmpBox.SetActive(false);   
+            pooledBoxs.Add(tmpBox);
         }
         
     }
 
-    public GameObject GetPooledObject()
+    public GameObject GetPooledObject(List<GameObject> list)
     {
         for(int i = 0; i < AmountToPool; i++)
         {
-            if (!pooledObjects[i].activeInHierarchy)
+            if (!list[i].activeInHierarchy)
             {
-                return pooledObjects[i];
+                return list[i];
             }
         }
         return null;
     }
 
     Vector3 raycastPoint;
+    BoundingBoxProperties boundingBoxProperties;
+    
 
     public void ProcessLabelJSON(string content)
     {
@@ -90,6 +108,9 @@ public class LabelManagerScript : MonoBehaviour
             raycastPoint.x = xMidpoint;
             raycastPoint.y = yMidpoint;
             raycastPoint.z = 0;
+            boundingBoxProperties.width = endingPos.x - startingPos.x;
+            boundingBoxProperties.height = endingPos.y - startingPos.y;
+            boundingBoxProperties.label = currClass;
 
             Debug.Log("Raycasting");
             raycastTrue = true;
@@ -117,7 +138,7 @@ public class LabelManagerScript : MonoBehaviour
     }
 
     
-    public void TextureToWorldRaycast(Vector3 texturePos)
+    public void TextureToWorldRaycast(Vector3 texturePos, BoundingBoxProperties boundingBoxProperties)
     {
 
         RaycastHit hit;
@@ -131,13 +152,18 @@ public class LabelManagerScript : MonoBehaviour
         Debug.DrawRay(start, end, Color.red);
         if(Physics.Raycast(labelRay, out hit))
         {
-            GameObject labelInstance = GetPooledObject();
+            GameObject labelInstance = GetPooledObject(pooledObjects);
+            GameObject boxInstance = GetPooledObject(pooledBoxs);
             if(labelInstance == null)
             {
                 Debug.Log("NULL INSTANCE");
             }
             labelInstance.SetActive(true);
             labelInstance.transform.position = hit.point;
+            boxInstance.SetActive(true);
+            boxInstance.transform.position = hit.point;
+            boxInstance.GetComponent<RectTransform>().sizeDelta = new Vector2(boundingBoxProperties.width, boundingBoxProperties.height);
+            boxInstance.GetComponent<TextMeshPro>().text = boundingBoxProperties.label;
         }
 
         //Debug.Log("Finished Drawing Ray");
@@ -149,7 +175,7 @@ public class LabelManagerScript : MonoBehaviour
     {
         if (raycastTrue)
         {
-            TextureToWorldRaycast(raycastPoint);
+            TextureToWorldRaycast(raycastPoint, boundingBoxProperties);
             raycastTrue = false;
         }
         

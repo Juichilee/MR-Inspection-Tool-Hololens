@@ -2105,6 +2105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pooledObjects: []
   objectToPool: {fileID: 31958751393264693, guid: 8cf67b87c6d897444803f2bcab340bbd, type: 3}
+  BoundingBox: {fileID: 819475928253093784, guid: bc2315b6339c2834f8abf3c0390e97e6, type: 3}
   AmountToPool: 10000
   RSTransform: {fileID: 1272544360}
   RSCameraView: {fileID: 1272544361}
