@@ -8,11 +8,9 @@ public class LabelManagerScript : MonoBehaviour
 {
     public struct BoundingBoxProperties
     {
-        public float width;
-        public float height;
+        public Vector2 size;
         public string label;
     }
-
     public static LabelManagerScript SharedInstance;
     public List<GameObject> pooledObjects;
     private List<GameObject> pooledBoxs;
@@ -108,8 +106,7 @@ public class LabelManagerScript : MonoBehaviour
             raycastPoint.x = xMidpoint;
             raycastPoint.y = yMidpoint;
             raycastPoint.z = 0;
-            boundingBoxProperties.width = endingPos.x - startingPos.x;
-            boundingBoxProperties.height = endingPos.y - startingPos.y;
+            boundingBoxProperties.size = new Vector2(endingPos.x - startingPos.x, endingPos.y - startingPos.y);
             boundingBoxProperties.label = currClass;
 
             Debug.Log("Raycasting");
@@ -162,7 +159,7 @@ public class LabelManagerScript : MonoBehaviour
             labelInstance.transform.position = hit.point;
             boxInstance.SetActive(true);
             boxInstance.transform.position = hit.point;
-            boxInstance.GetComponent<RectTransform>().sizeDelta = new Vector2(boundingBoxProperties.width, boundingBoxProperties.height);
+            boxInstance.transform.localScale = boundingBoxProperties.size / 100;
             boxInstance.GetComponent<TextMeshPro>().text = boundingBoxProperties.label;
         }
 
