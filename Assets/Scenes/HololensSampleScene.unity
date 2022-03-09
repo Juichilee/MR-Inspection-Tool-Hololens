@@ -2945,6 +2945,7 @@ GameObject:
   - component: {fileID: 1202283657}
   - component: {fileID: 1202283656}
   - component: {fileID: 1202283658}
+  - component: {fileID: 1202283659}
   m_Layer: 0
   m_Name: InputManagerObject
   m_TagString: Untagged
@@ -3042,6 +3043,19 @@ MonoBehaviour:
   RSTransform: {fileID: 1272544360}
   RSCameraView: {fileID: 1272544361}
   textureSize: {x: 0, y: 0}
+--- !u!114 &1202283659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202283653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df3b11da7a5accc4996d20bb95564e77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RScamera: {fileID: 1272544361}
 --- !u!1 &1220058920
 GameObject:
   m_ObjectHideFlags: 0
@@ -14984,6 +14998,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1202283659}
+        m_TargetAssemblyTypeName: VirtualCameraAdjustment, Assembly-CSharp
+        m_MethodName: incrementX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   ButtonReleased:
     m_PersistentCalls:
       m_Calls:
@@ -18036,7 +18062,7 @@ GameObject:
   - component: {fileID: 229005220}
   - component: {fileID: 229005223}
   m_Layer: 0
-  m_Name: HandMenu_Large_WorldLock_On_GrabAndPull
+  m_Name: HandMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
