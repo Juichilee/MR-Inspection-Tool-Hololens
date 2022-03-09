@@ -40,6 +40,7 @@ public class VirtualCameraAdjustment : MonoBehaviour
                 translation.z -= val;
                 break;
         }
+        updateValue();
     }
 
     public void changeRotation(string axis)
@@ -66,6 +67,7 @@ public class VirtualCameraAdjustment : MonoBehaviour
                 rotation.y -= val;
                 break;
         }
+        updateValue();
     }
 
     // Start is called before the first frame update
