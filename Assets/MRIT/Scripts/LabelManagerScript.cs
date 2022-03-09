@@ -6,17 +6,10 @@ using TMPro;
 
 public class LabelManagerScript : MonoBehaviour
 {
-    //public struct BoundingBoxProperties
-    //{
-    //    public Vector2 size;
-    //    public string label;
-    //}
-
     public static LabelManagerScript SharedInstance;
     public List<GameObject> pooledObjects;
-    private List<GameObject> pooledBoxs;
     public GameObject objectToPool;
-    //public GameObject BoundingBox;
+
     public int AmountToPool;
 
     public Transform RSTransform;
@@ -34,18 +27,14 @@ public class LabelManagerScript : MonoBehaviour
     {
         textureSize = InputManager._InputManagerInstance.streamingSize;
         pooledObjects = new List<GameObject>();
-        pooledBoxs = new List<GameObject>();
         GameObject tmp;
-        GameObject tmpBox;
         for(int i = 0; i < AmountToPool; i++)
         {
             tmp = Instantiate(objectToPool);
             tmp.SetActive(false);
+            tmp.transform.parent = RSTransform;
+            tmp.GetComponent<Canvas>().worldCamera = RSCameraView;
             pooledObjects.Add(tmp);
-
-            //tmpBox = Instantiate(BoundingBox);
-            //tmpBox.SetActive(false);   
-            //pooledBoxs.Add(tmpBox);
         }
         
     }
@@ -65,7 +54,8 @@ public class LabelManagerScript : MonoBehaviour
     Vector3 raycastPoint = new Vector3(0,0,0);
     Vector2 startingPos = new Vector2(0, 0);
     Vector2 endingPos = new Vector2(0, 0);
-    //BoundingBoxProperties boundingBoxProperties;
+    Vector2 size = new Vector2(0, 0);
+    string currClass;
 
     public struct FrameLabel
     {
@@ -93,7 +83,7 @@ public class LabelManagerScript : MonoBehaviour
         
         for(int i = 0; i < pred_classes.Length; i++)
         {
-            string currClass = pred_classes[i];
+            currClass = pred_classes[i];
             float[] boxPositions = boxes[i];
 
             Debug.Log($"PredClass: {currClass}, box1: {boxPositions[0]}, box2: {boxPositions[1]}");
@@ -111,20 +101,16 @@ public class LabelManagerScript : MonoBehaviour
             raycastPoint.x = xMidpoint;
             raycastPoint.y = yMidpoint;
             raycastPoint.z = 0;
-            //boundingBoxProperties.size = new Vector2(endingPos.x - startingPos.x, endingPos.y - startingPos.y);
-            //boundingBoxProperties.label = currClass;
+
+            size.x = endingPos.x - startingPos.x;
+            size.y = endingPos.y - startingPos.y;
+
             frameArrived = true;
         }
 
         
         //Debug.Log($"First Pred: {classes[0]}");
     }
-
-    //public void AddLabel()
-    //{
-    //    GameObject virtualLabelInstance = GetPooledObject();
-
-    //}
 
     public float InvertYPos(float pos)
     {
@@ -152,7 +138,6 @@ public class LabelManagerScript : MonoBehaviour
         if(Physics.Raycast(labelRay, out hit))
         {
             GameObject labelCanvasInstance = GetPooledObject(pooledObjects);
-            //GameObject boxInstance = GetPooledObject(pooledBoxs);
             if(labelCanvasInstance == null)
             {
                 Debug.Log("NULL INSTANCE");
@@ -160,14 +145,12 @@ public class LabelManagerScript : MonoBehaviour
             else
             {
                 labelCanvasInstance.SetActive(true);
-                labelCanvasInstance.transform.position = hit.point;
+                labelCanvasInstance.transform.position = new Vector3(startingPos.x, startingPos.y);
+                labelCanvasInstance.GetComponent<Canvas>().planeDistance = hit.point.z;
+                labelCanvasInstance.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = size;
+                labelCanvasInstance.transform.GetChild(1).GetComponent<TextMeshPro>().text = currClass;
                 StartCoroutine(DeactivateObjectTimer(labelCanvasInstance));
             }
-            
-            //boxInstance.SetActive(true);
-            //boxInstance.transform.position = hit.point;
-            //boxInstance.transform.localScale = boundingBoxProperties.size / 100;
-            //boxInstance.GetComponent<TextMeshPro>().text = boundingBoxProperties.label;
         }
 
         //Debug.Log("Finished Drawing Ray");
