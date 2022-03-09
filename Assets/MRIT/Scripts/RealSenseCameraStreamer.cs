@@ -12,8 +12,6 @@ public class RealSenseCameraStreamer : MonoBehaviour
 
     [Range(0, 1)]
     [SerializeField]
-
-
     private float thresholdVal = 0.5f;
     public float ThresholdVal
     {
