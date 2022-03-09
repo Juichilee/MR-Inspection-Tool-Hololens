@@ -10,7 +10,7 @@ namespace Unity.RenderStreaming
         [SerializeField] private Vector2Int streamingSize = new Vector2Int(512, 512);
 
         private MediaStream receiveStream;
-        public Renderer receiveImage;
+        public RenderTexture receiveImage;
 
         void OnEnable()
         {
@@ -21,7 +21,7 @@ namespace Unity.RenderStreaming
                 if (receiveImage != null && e.Track.Kind == TrackKind.Video)
                 {
                     var videoTrack = (VideoStreamTrack)e.Track;
-                    receiveImage.material.mainTexture = videoTrack.InitializeReceiver(streamingSize.x, streamingSize.y);
+                    receiveImage = (RenderTexture)videoTrack.InitializeReceiver(streamingSize.x, streamingSize.y);
                 }
             };
         }

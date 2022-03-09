@@ -6,16 +6,10 @@ using TMPro;
 
 public class LabelManagerScript : MonoBehaviour
 {
-    public struct BoundingBoxProperties
-    {
-        public Vector2 size;
-        public string label;
-    }
     public static LabelManagerScript SharedInstance;
     public List<GameObject> pooledObjects;
-    private List<GameObject> pooledBoxs;
     public GameObject objectToPool;
-    public GameObject BoundingBox;
+
     public int AmountToPool;
 
     public Transform RSTransform;
@@ -33,18 +27,14 @@ public class LabelManagerScript : MonoBehaviour
     {
         textureSize = InputManager._InputManagerInstance.streamingSize;
         pooledObjects = new List<GameObject>();
-        pooledBoxs = new List<GameObject>();
         GameObject tmp;
-        GameObject tmpBox;
         for(int i = 0; i < AmountToPool; i++)
         {
             tmp = Instantiate(objectToPool);
             tmp.SetActive(false);
+            tmp.transform.parent = RSTransform;
+            tmp.GetComponent<Canvas>().worldCamera = RSCameraView;
             pooledObjects.Add(tmp);
-
-            tmpBox = Instantiate(BoundingBox);
-            tmpBox.SetActive(false);   
-            pooledBoxs.Add(tmpBox);
         }
         
     }
@@ -61,43 +51,48 @@ public class LabelManagerScript : MonoBehaviour
         return null;
     }
 
-    Vector3 raycastPoint;
-    BoundingBoxProperties boundingBoxProperties;
-    
+    Vector3 raycastPoint = new Vector3(0,0,0);
+    Vector2 startingPos = new Vector2(0, 0);
+    Vector2 endingPos = new Vector2(0, 0);
+    Vector2 size = new Vector2(0, 0);
+    string currClass;
+
+    public struct FrameLabel
+    {
+        public Vector3 raycastPoint;
+        public string[] predClasses;
+        public float[][] boxPositions;
+    }
+
+    public FrameLabel currFrame;
 
     public void ProcessLabelJSON(string content)
     {
         //LabelInfo frame = JsonUtility.FromJson<LabelInfo>(content);
+
+
         var frame = JsonConvert.DeserializeObject<LabelInfo>(content);
         string[] pred_classes = frame.pred_classes;
         float[] scores = frame.scores;
         float[][] boxes = frame.boxes;
 
-        Vector2 startingPos = new Vector2(0,0);
-        Vector2 endingPos = new Vector2(0,0);
-        raycastPoint = new Vector3(0, 0, 0);
+        
+        //raycastPoint = new Vector3(0, 0, 0);
 
         Debug.Log($"JSON String: {content}");
         
         for(int i = 0; i < pred_classes.Length; i++)
         {
-            string currClass = pred_classes[i];
+            currClass = pred_classes[i];
             float[] boxPositions = boxes[i];
 
-            float x = 0.00005f;
-            Debug.Log($"PredClass: {currClass}, box1: {boxPositions[0].GetType()}, box2: {x.GetType()}");
+            Debug.Log($"PredClass: {currClass}, box1: {boxPositions[0]}, box2: {boxPositions[1]}");
 
             startingPos.x = boxPositions[0];
-            //Debug.Log("Setting Pos Success1");
             startingPos.y = InvertYPos(boxPositions[1]);
-            //Debug.Log("Setting Pos Success2");
             endingPos.x = boxPositions[2];
-            //Debug.Log("Setting Pos Success3");
             endingPos.y = InvertYPos(boxPositions[3]);
-            //Debug.Log("Setting Pos Success4");
-
-
-
+ 
             int xMidpoint = (int)CalculateMidPoint(startingPos.x, endingPos.x);
             int yMidpoint = (int)CalculateMidPoint(startingPos.y, endingPos.y);
 
@@ -106,23 +101,16 @@ public class LabelManagerScript : MonoBehaviour
             raycastPoint.x = xMidpoint;
             raycastPoint.y = yMidpoint;
             raycastPoint.z = 0;
-            boundingBoxProperties.size = new Vector2(endingPos.x - startingPos.x, endingPos.y - startingPos.y);
-            boundingBoxProperties.label = currClass;
 
-            Debug.Log("Raycasting");
-            raycastTrue = true;
-            //TextureToWorldRaycast(xMidpoint, yMidpoint);
+            size.x = endingPos.x - startingPos.x;
+            size.y = endingPos.y - startingPos.y;
+
+            frameArrived = true;
         }
-        
 
+        
         //Debug.Log($"First Pred: {classes[0]}");
     }
-
-    //public void AddLabel()
-    //{
-    //    GameObject virtualLabelInstance = GetPooledObject();
-
-    //}
 
     public float InvertYPos(float pos)
     {
@@ -135,7 +123,7 @@ public class LabelManagerScript : MonoBehaviour
     }
 
     
-    public void TextureToWorldRaycast(Vector3 texturePos, BoundingBoxProperties boundingBoxProperties)
+    public void TextureToWorldRaycast(Vector3 texturePos)
     {
 
         RaycastHit hit;
@@ -149,33 +137,44 @@ public class LabelManagerScript : MonoBehaviour
         Debug.DrawRay(start, end, Color.red);
         if(Physics.Raycast(labelRay, out hit))
         {
-            GameObject labelInstance = GetPooledObject(pooledObjects);
-            GameObject boxInstance = GetPooledObject(pooledBoxs);
-            if(labelInstance == null)
+            GameObject labelCanvasInstance = GetPooledObject(pooledObjects);
+            if(labelCanvasInstance == null)
             {
                 Debug.Log("NULL INSTANCE");
             }
-            labelInstance.SetActive(true);
-            labelInstance.transform.position = hit.point;
-            boxInstance.SetActive(true);
-            boxInstance.transform.position = hit.point;
-            boxInstance.transform.localScale = boundingBoxProperties.size / 100;
-            boxInstance.GetComponent<TextMeshPro>().text = boundingBoxProperties.label;
+            else
+            {
+                labelCanvasInstance.SetActive(true);
+                labelCanvasInstance.transform.GetChild(0).GetComponent<RectTransform>().position = new Vector3(startingPos.x, startingPos.y);
+                labelCanvasInstance.GetComponent<Canvas>().planeDistance = hit.point.z;
+                labelCanvasInstance.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = size;
+                labelCanvasInstance.transform.GetChild(1).GetComponent<TextMeshPro>().text = currClass;
+                StartCoroutine(DeactivateObjectTimer(labelCanvasInstance));
+            }
         }
 
         //Debug.Log("Finished Drawing Ray");
     }
 
-    bool raycastTrue = false;
+    IEnumerator DeactivateObjectTimer(GameObject targetObj)
+    {
+        yield return new WaitForSeconds(1.0f);
+        targetObj.SetActive(false);
+    }
+
+
+    bool frameArrived = false;
     // Update is called once per frame
     void Update()
     {
-        if (raycastTrue)
+        if (frameArrived)
         {
-            TextureToWorldRaycast(raycastPoint, boundingBoxProperties);
-            raycastTrue = false;
+            TextureToWorldRaycast(raycastPoint);
+            frameArrived = false;
         }
         
         
     }
 }
+
+
