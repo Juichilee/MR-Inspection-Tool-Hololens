@@ -198,8 +198,8 @@ public class LabelManagerScript : MonoBehaviour
     {
 
 
-        RawImageRect.offsetMin = startingPos;
-        RawImageRect.offsetMax = endingPos;
+        RawImageRect.offsetMin = new Vector2(startingPos.x, startingPos.y);
+        RawImageRect.offsetMax = new Vector2(size.x - endingPos.x, size.y - endingPos.y);
     }
 
     IEnumerator DeactivateObjectTimer(GameObject obj)
