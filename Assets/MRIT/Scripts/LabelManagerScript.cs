@@ -145,7 +145,7 @@ public class LabelManagerScript : MonoBehaviour
             else
             {
                 labelCanvasInstance.SetActive(true);
-                labelCanvasInstance.transform.position = new Vector3(startingPos.x, startingPos.y);
+                labelCanvasInstance.transform.GetChild(0).GetComponent<RectTransform>().position = new Vector3(startingPos.x, startingPos.y);
                 labelCanvasInstance.GetComponent<Canvas>().planeDistance = hit.point.z;
                 labelCanvasInstance.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = size;
                 labelCanvasInstance.transform.GetChild(1).GetComponent<TextMeshPro>().text = currClass;
