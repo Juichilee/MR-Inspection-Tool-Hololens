@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class VirtualCameraAdjustment : MonoBehaviour
 {
-    public Camera RScamera;
-    public int val;
+    public GameObject RSModel;
+    public float val;
 
     Vector3 translation = new Vector3();
     Vector3 rotation = new Vector3();
 
     public void updateValue()
     {
-        RScamera.transform.Translate(translation);
-        RScamera.transform.Rotate(rotation, Space.Self);
+        RSModel.transform.Translate(translation);
+        RSModel.transform.Rotate(rotation, Space.Self);
     }
 
     public void changeTranslation(string axis)
