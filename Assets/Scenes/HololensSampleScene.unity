@@ -814,11 +814,6 @@ Transform:
   m_Father: {fileID: 1907370653}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!224 &195317775 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4295009516198097735, guid: 28fe874dd6fc6a043a5dff85c27dad9c, type: 3}
-  m_PrefabInstance: {fileID: 1808462267}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &229005219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3044,14 +3039,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pooledObjects: []
-  pooledHitMarkers: []
-  hitMarker: {fileID: 31958751393264693, guid: 8cf67b87c6d897444803f2bcab340bbd, type: 3}
   objectToPool: {fileID: 1599440114515164474, guid: 28fe874dd6fc6a043a5dff85c27dad9c, type: 3}
   AmountToPool: 100
   RSTransform: {fileID: 1272544360}
   RSCameraView: {fileID: 1272544361}
   textureSize: {x: 0, y: 0}
-  testRect: {fileID: 195317775}
 --- !u!114 &1202283659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5103,6 +5095,14 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1272544361}
+    - target: {fileID: 1599440115043653948, guid: 28fe874dd6fc6a043a5dff85c27dad9c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -256
+      objectReference: {fileID: 0}
+    - target: {fileID: 1599440115043653948, guid: 28fe874dd6fc6a043a5dff85c27dad9c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 4295009516198097735, guid: 28fe874dd6fc6a043a5dff85c27dad9c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -6273,7 +6273,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1421941238547072
 Transform:
   m_ObjectHideFlags: 0
