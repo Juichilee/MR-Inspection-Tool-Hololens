@@ -18063,7 +18063,7 @@ GameObject:
   - component: {fileID: 229005220}
   - component: {fileID: 229005223}
   m_Layer: 0
-  m_Name: HandMenu_Large_WorldLock_On_GrabAndPull
+  m_Name: HandMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
