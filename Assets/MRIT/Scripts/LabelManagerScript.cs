@@ -30,12 +30,12 @@ public class LabelManagerScript : MonoBehaviour
         pooledObjects = new List<GameObject>();
 
         GameObject tmp;
-        for(int i = 0; i < AmountToPool; i++)
+        for (int i = 0; i < AmountToPool; i++)
         {
             tmp = Instantiate(objectToPool);
             tmp.SetActive(false);
             tmp.transform.SetParent(RSTransform);
-            //tmp.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
+            tmp.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
             tmp.GetComponent<Canvas>().worldCamera = RSCameraView;
             pooledObjects.Add(tmp);
         }
@@ -43,7 +43,7 @@ public class LabelManagerScript : MonoBehaviour
 
     public GameObject GetPooledObject(List<GameObject> list)
     {
-        for(int i = 0; i < AmountToPool; i++)
+        for (int i = 0; i < AmountToPool; i++)
         {
             if (!list[i].activeInHierarchy)
             {
@@ -56,13 +56,13 @@ public class LabelManagerScript : MonoBehaviour
     LabelInstanceInfo labelInstanceInfo;
     struct LabelInstanceInfo
     {
-        Vector2 startPos;
-        Vector2 endPos;
+        public Vector2 startPos;
+        public Vector2 endPos;
 
-        Vector3 raycastPoint;
-        Vector2 size;
+        public Vector3 raycastPoint;
+        public Vector2 size;
 
-        string className;
+        public string className;
 
         public LabelInstanceInfo(Vector2 s, Vector2 e, Vector3 r, Vector2 si, string cl)
         {
@@ -74,72 +74,98 @@ public class LabelManagerScript : MonoBehaviour
         }
     }
 
+    bool stopProcess = false;
     public void ProcessLabelJSON(string content)
     {
-        //LabelInfo frame = JsonUtility.FromJson<LabelInfo>(content);
-        var frame = JsonConvert.DeserializeObject<LabelInfo>(content);
-        string[] pred_classes = frame.pred_classes;
-        float[] scores = frame.scores;
-        float[][] boxes = frame.boxes;
-
-        Debug.Log($"JSON String: {content}");
-        
-        for(int i = 0; i < pred_classes.Length; i++)
+        if (!stopProcess)
         {
-            currClass = pred_classes[i];
-            float[] boxPositions = boxes[i];
+            //LabelInfo frame = JsonUtility.FromJson<LabelInfo>(content);
+            var frame = JsonConvert.DeserializeObject<LabelInfo>(content);
+            string[] pred_classes = frame.pred_classes;
+            float[] scores = frame.scores;
+            float[][] boxes = frame.boxes;
 
-            Debug.Log($"PredClass: {currClass}, box1: {boxPositions[0]}, box2: {boxPositions[1]}");
+            Debug.Log($"JSON String: {content}");
 
-            startPos.x = boxPositions[0];
-            startPos.y = InvertYPos(boxPositions[1]);
-            endPos.x = boxPositions[2];
-            endPos.y = InvertYPos(boxPositions[3]);
+            for (int i = 0; i < pred_classes.Length; i++)
+            {
+                labelInstanceInfo.className = pred_classes[i];
+                float[] boxPositions = boxes[i];
 
-            int xMidpoint = (int)CalculateMidPoint(startPos.x, endPos.x);
-            int yMidpoint = (int)CalculateMidPoint(startPos.y, endPos.y);
+                Debug.Log($"BEFORE PredClass: {labelInstanceInfo.className}, BoxPos1:{boxPositions[0]} , BoxPos2:{boxPositions[1]}, BoxPos3:{boxPositions[2]}, BoxPos4:{boxPositions[3]}");
 
-            size.x = endPos.x - startPos.y;
-            size.y = endPos.y - startPos.x;
+                float startPosX = boxPositions[0];
+                float startPosY = textureSize.y - boxPositions[3];
 
-            Debug.Log($"MidPointX: {xMidpoint}, MidPointY:{yMidpoint}");
+                float endPosX = boxPositions[2];
+                float endPosY = textureSize.y - boxPositions[1];
 
-            raycastPoint.x = xMidpoint;
-            raycastPoint.y = yMidpoint;
-            raycastPoint.z = 0;
+                Debug.Log($"AFTER PredClass: {labelInstanceInfo.className}, BoxPos1:{startPosX} , BoxPos2:{startPosY}, BoxPos3:{endPosX}, BoxPos4:{endPosY}");
 
-            Debug.Log("Raycasting");
-            raycastTrue = true;
+                labelInstanceInfo.startPos.x = startPosX;
+                labelInstanceInfo.startPos.y = startPosY;
+
+                labelInstanceInfo.endPos.x = endPosX;
+                labelInstanceInfo.endPos.y = endPosY;
+
+                labelInstanceInfo.size.x = endPosX - startPosX;
+                labelInstanceInfo.size.y = endPosY - startPosY;
+
+                int xMidpoint = (int)CalculateMidPoint(startPosX, endPosX);
+                int yMidpoint = (int)CalculateMidPoint(startPosY, endPosY);
+
+                Debug.Log($"MidPointX: {xMidpoint}, MidPointY:{yMidpoint}");
+
+                labelInstanceInfo.raycastPoint.x = xMidpoint;
+                labelInstanceInfo.raycastPoint.y = yMidpoint;
+                //raycastPoint.x = xMidpoint;
+                //raycastPoint.y = yMidpoint;
+                //raycastPoint.z = 0;
+
+                Debug.Log("Raycasting");
+                raycastTrue = true;
+                //stopProcess = true;
+
+                //SetRectTransform(testRect, startPosX, startPosY, endPosX, endPosY);
+                ////Vector2 size = new Vector2(endPos.x - startPos.x, endPos.y - startPos.y);
+                //Vector2 size = new Vector2();
+                //size.x = endPosX - startPosX;
+                //size.y = endPosY - startPosY;
+
+                ////Vector2 midPoint = startPos + (size / 2);
+                //SetRectTransform(labelRect, startPosX, startPosY + size.y - 25, endPosX, endPosY);
+                //SetLabelName(TextMesh, "TestLabel");
+            }
         }
+
     }
 
-    public float InvertYPos(float pos)
-    {
-        return textureSize.y - pos;
-    }
+    //public float InvertYPos(float pos)
+    //{
+    //    return textureSize.y - pos;
+    //}
 
     public float CalculateMidPoint(float startPos, float endPos)
     {
-        return startPos + ((endPos-startPos)/2);
+        return startPos + ((endPos - startPos) / 2);
     }
 
     public void TextureToWorldRaycast(Vector3 texturePos)
     {
-
         RaycastHit hit;
         Ray labelRay = RSCameraView.ScreenPointToRay(texturePos);
 
         //Vector3 start = RSCameraView.transform.position;
         Vector3 start = RSTransform.position;
 
-        Vector3 end = labelRay.GetPoint(10000f);
+        Vector3 end = labelRay.GetPoint(1000f);
 
         Debug.DrawRay(start, end, Color.red);
-        if(Physics.Raycast(labelRay, out hit, Physics.IgnoreRaycastLayer))
+        if (Physics.Raycast(labelRay, out hit, Physics.IgnoreRaycastLayer))
         {
             GameObject labelInstance = GetPooledObject(pooledObjects);
 
-            if(labelInstance == null)
+            if (labelInstance == null)
             {
                 Debug.Log("NULL INSTANCE");
             }
@@ -154,22 +180,27 @@ public class LabelManagerScript : MonoBehaviour
                 RectTransform TextRect = Text.GetComponent<RectTransform>();
                 TMP_Text TextMesh = Text.GetComponent<TMP_Text>();
 
-
-
                 //LabelCanvas.planeDistance = Mathf.Abs(hit.point.z - RSCameraView.transform.position.z);
-                LabelCanvas.planeDistance = Mathf.Abs(hit.point.z - RSTransform.position.z);
+                //LabelCanvas.planeDistance = Mathf.Abs(hit.point.z - RSTransform.position.z);
+                LabelCanvas.planeDistance = hit.distance;
+
+                Vector2 startPos = labelInstanceInfo.startPos;
+                Vector2 endPos = labelInstanceInfo.endPos;
+                Vector2 size = labelInstanceInfo.size;
+                string className = labelInstanceInfo.className;
+
+                SetRectTransform(RawImageRect, startPos.x, startPos.y, endPos.x, endPos.y);
+                //Vector2 size = new Vector2(endPos.x - startPos.x, endPos.y - startPos.y);
+                //Vector2 midPoint = startPos + (size / 2);
+                SetRectTransform(TextRect, startPos.x, startPos.y + size.y - 25, endPos.x, endPos.y);
+                SetLabelName(TextMesh, className);
+
+                LabelCanvas.renderMode = RenderMode.WorldSpace;
 
                 StartCoroutine(DeactivateObjectTimer(labelInstance));
             }
         }
     }
-
-
-    //public RectTransform testRect;
-    //public RectTransform labelRect;
-    //public TMP_Text TextMesh;
-    //Vector2 startPos = new Vector2(256, 256);
-    //Vector2 endPos = new Vector2(512, 512);
 
     public void SetRectTransform(RectTransform RawImageRect, float startPosX, float startPosY, float endPosX, float endPosY)
     {
@@ -186,22 +217,38 @@ public class LabelManagerScript : MonoBehaviour
     IEnumerator DeactivateObjectTimer(GameObject obj)
     {
         yield return new WaitForSeconds(1f);
+        obj.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
         obj.SetActive(false);
     }
 
     bool raycastTrue = false;
+
+    //public RectTransform testRect;
+    //public RectTransform labelRect;
+    //public TMP_Text TextMesh;
+    //Vector2 startPos = new Vector2(0, 256);
+    //Vector2 endPos = new Vector2(256, 512);
+
     // Update is called once per frame
     void Update()
     {
-        //if (raycastTrue)
-        //{
-        //    TextureToWorldRaycast(raycastPoint);
-        //    raycastTrue = false;
-        //}
+        if (raycastTrue)
+        {
+            raycastTrue = false;
+            TextureToWorldRaycast(labelInstanceInfo.raycastPoint);
+        }
+
+        //Vector2 startPos = labelInstanceInfo.startPos;
+        //Vector2 endPos = labelInstanceInfo.endPos;
+
         //SetRectTransform(testRect, startPos.x, startPos.y, endPos.x, endPos.y);
-        //Vector2 size = new Vector2(endPos.x - startPos.x, endPos.y - startPos.y);
-        //Vector2 midPoint = startPos + (size/2);
+        ////Vector2 size = new Vector2(endPos.x - startPos.x, endPos.y - startPos.y);
+        //Vector2 size = new Vector2();
+        //size.x = endPos.x - startPos.x;
+        //size.y = endPos.y - startPos.y;
+
+        ////Vector2 midPoint = startPos + (size / 2);
         //SetRectTransform(labelRect, startPos.x, startPos.y + size.y - 25, endPos.x, endPos.y);
-        //SetLabelName(TextMesh, "Baby Harp Seal");
+        //SetLabelName(TextMesh, "TestLabel");
     }
 }
