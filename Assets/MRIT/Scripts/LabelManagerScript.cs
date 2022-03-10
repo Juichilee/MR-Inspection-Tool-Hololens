@@ -75,6 +75,7 @@ public class LabelManagerScript : MonoBehaviour
     }
 
     bool stopProcess = false;
+    int labelCount = 0;
     public void ProcessLabelJSON(string content)
     {
         if (!stopProcess)
@@ -124,6 +125,7 @@ public class LabelManagerScript : MonoBehaviour
 
                 Debug.Log("Raycasting");
                 raycastTrue = true;
+                labelCount++;
                 //stopProcess = true;
 
                 //SetRectTransform(testRect, startPosX, startPosY, endPosX, endPosY);
@@ -135,6 +137,10 @@ public class LabelManagerScript : MonoBehaviour
                 ////Vector2 midPoint = startPos + (size / 2);
                 //SetRectTransform(labelRect, startPosX, startPosY + size.y - 25, endPosX, endPosY);
                 //SetLabelName(TextMesh, "TestLabel");
+            }
+            if(labelCount == 1000)
+            {
+                stopProcess = true;
             }
         }
 
@@ -181,8 +187,11 @@ public class LabelManagerScript : MonoBehaviour
                 TMP_Text TextMesh = Text.GetComponent<TMP_Text>();
 
                 //LabelCanvas.planeDistance = Mathf.Abs(hit.point.z - RSCameraView.transform.position.z);
+                Debug.Log($"HitPoint.z: {hit.point.z}");
+
                 //LabelCanvas.planeDistance = Mathf.Abs(hit.point.z - RSTransform.position.z);
-                LabelCanvas.planeDistance = hit.distance;
+                //LabelCanvas.planeDistance = hit.distance;
+                float distz = hit.point.z - RSTransform.position.z;
 
                 Vector2 startPos = labelInstanceInfo.startPos;
                 Vector2 endPos = labelInstanceInfo.endPos;
@@ -196,8 +205,10 @@ public class LabelManagerScript : MonoBehaviour
                 SetLabelName(TextMesh, className);
 
                 LabelCanvas.renderMode = RenderMode.WorldSpace;
+                LabelCanvas.transform.localScale = new Vector3(0.002120921f * distz, 0.002120921f * distz, 0);
+                LabelCanvas.transform.localPosition = new Vector3(0, 0, distz);
 
-                StartCoroutine(DeactivateObjectTimer(labelInstance));
+                //StartCoroutine(DeactivateObjectTimer(labelInstance));
             }
         }
     }
@@ -216,8 +227,8 @@ public class LabelManagerScript : MonoBehaviour
 
     IEnumerator DeactivateObjectTimer(GameObject obj)
     {
-        yield return new WaitForSeconds(1f);
-        obj.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
+        yield return new WaitForSeconds(0.01f);
+        //obj.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
         obj.SetActive(false);
     }
 
