@@ -35,7 +35,7 @@ public class LabelManagerScript : MonoBehaviour
             tmp = Instantiate(objectToPool);
             tmp.SetActive(false);
             tmp.transform.SetParent(RSTransform);
-            tmp.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
+            //tmp.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
             tmp.GetComponent<Canvas>().worldCamera = RSCameraView;
             pooledObjects.Add(tmp);
         }
@@ -75,7 +75,7 @@ public class LabelManagerScript : MonoBehaviour
     }
 
     bool stopProcess = false;
-    int labelCount = 0;
+    //int labelCount = 0;
     public void ProcessLabelJSON(string content)
     {
         if (!stopProcess)
@@ -125,7 +125,9 @@ public class LabelManagerScript : MonoBehaviour
 
                 Debug.Log("Raycasting");
                 raycastTrue = true;
-                labelCount++;
+                //labelCount++;
+
+
                 //stopProcess = true;
 
                 //SetRectTransform(testRect, startPosX, startPosY, endPosX, endPosY);
@@ -138,10 +140,10 @@ public class LabelManagerScript : MonoBehaviour
                 //SetRectTransform(labelRect, startPosX, startPosY + size.y - 25, endPosX, endPosY);
                 //SetLabelName(TextMesh, "TestLabel");
             }
-            if(labelCount == 1000)
-            {
-                stopProcess = true;
-            }
+            //if(labelCount == 1000)
+            //{
+            //    stopProcess = true;
+            //}
         }
 
     }
@@ -204,11 +206,12 @@ public class LabelManagerScript : MonoBehaviour
                 SetRectTransform(TextRect, startPos.x, startPos.y + size.y - 25, endPos.x, endPos.y);
                 SetLabelName(TextMesh, className);
 
-                LabelCanvas.renderMode = RenderMode.WorldSpace;
-                LabelCanvas.transform.localScale = new Vector3(0.002120921f * distz, 0.002120921f * distz, 0);
-                LabelCanvas.transform.localPosition = new Vector3(0, 0, distz);
 
-                //StartCoroutine(DeactivateObjectTimer(labelInstance));
+                //LabelCanvas.renderMode = RenderMode.WorldSpace;
+                LabelCanvas.transform.localScale = new Vector3(0.002120921f * distz, 0.002120921f * distz, 0);
+                LabelCanvas.transform.localPosition = new Vector3(0, 0, distz + 0.01f);
+
+                StartCoroutine(DeactivateObjectTimer(labelInstance));
             }
         }
     }
@@ -227,7 +230,7 @@ public class LabelManagerScript : MonoBehaviour
 
     IEnumerator DeactivateObjectTimer(GameObject obj)
     {
-        yield return new WaitForSeconds(0.01f);
+        yield return new WaitForSeconds(0.1f);
         //obj.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
         obj.SetActive(false);
     }
