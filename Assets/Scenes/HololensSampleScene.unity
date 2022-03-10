@@ -2202,11 +2202,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 187181258}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!224 &195317775 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4295009516198097735, guid: 28fe874dd6fc6a043a5dff85c27dad9c, type: 3}
-  m_PrefabInstance: {fileID: 1808462267}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &214351691
 GameObject:
   m_ObjectHideFlags: 0
@@ -14358,14 +14353,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pooledObjects: []
-  pooledHitMarkers: []
-  hitMarker: {fileID: 31958751393264693, guid: 8cf67b87c6d897444803f2bcab340bbd, type: 3}
   objectToPool: {fileID: 1599440114515164474, guid: 28fe874dd6fc6a043a5dff85c27dad9c, type: 3}
   AmountToPool: 100
   RSTransform: {fileID: 1272544360}
   RSCameraView: {fileID: 1272544361}
   textureSize: {x: 0, y: 0}
-  testRect: {fileID: 195317775}
 --- !u!114 &1202283659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14378,7 +14370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df3b11da7a5accc4996d20bb95564e77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RSModel: {fileID: 0}
+  RSModel: {fileID: 1303737164}
   val: 1
 --- !u!1 &1208361313
 GameObject:
@@ -18471,7 +18463,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1599440114515164474, guid: 28fe874dd6fc6a043a5dff85c27dad9c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1599440114515164477, guid: 28fe874dd6fc6a043a5dff85c27dad9c, type: 3}
       propertyPath: m_Pivot.x
@@ -18951,7 +18943,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1845474707
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19974,7 +19966,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1994146491}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -23307,7 +23299,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1377842336826607078}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -23571,7 +23563,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1377842338023827484}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -30152,7 +30144,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5842008468347663747
 Transform:
   m_ObjectHideFlags: 0
