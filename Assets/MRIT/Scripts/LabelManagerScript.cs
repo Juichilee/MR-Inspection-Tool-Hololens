@@ -14,6 +14,8 @@ public class LabelManagerScript : MonoBehaviour
     public Transform RSTransform;
     public Camera RSCameraView;
 
+    public GameObject targetObject;
+
     public Vector2 textureSize = new Vector2(512, 512);
 
     private void Awake()
@@ -36,7 +38,7 @@ public class LabelManagerScript : MonoBehaviour
             tmp.SetActive(false);
             tmp.transform.SetParent(RSTransform);
             //tmp.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
-            tmp.GetComponent<Canvas>().worldCamera = RSCameraView;
+            //tmp.GetComponent<Canvas>().worldCamera = RSCameraView;
             pooledObjects.Add(tmp);
         }
     }
@@ -125,27 +127,8 @@ public class LabelManagerScript : MonoBehaviour
 
                 Debug.Log("Raycasting");
                 raycastTrue = true;
-                //labelCount++;
-
-
-                //stopProcess = true;
-
-                //SetRectTransform(testRect, startPosX, startPosY, endPosX, endPosY);
-                ////Vector2 size = new Vector2(endPos.x - startPos.x, endPos.y - startPos.y);
-                //Vector2 size = new Vector2();
-                //size.x = endPosX - startPosX;
-                //size.y = endPosY - startPosY;
-
-                ////Vector2 midPoint = startPos + (size / 2);
-                //SetRectTransform(labelRect, startPosX, startPosY + size.y - 25, endPosX, endPosY);
-                //SetLabelName(TextMesh, "TestLabel");
             }
-            //if(labelCount == 1000)
-            //{
-            //    stopProcess = true;
-            //}
         }
-
     }
 
     //public float InvertYPos(float pos)
@@ -189,11 +172,13 @@ public class LabelManagerScript : MonoBehaviour
                 TMP_Text TextMesh = Text.GetComponent<TMP_Text>();
 
                 //LabelCanvas.planeDistance = Mathf.Abs(hit.point.z - RSCameraView.transform.position.z);
-                Debug.Log($"HitPoint.z: {hit.point.z}");
+                //Debug.Log($"HitPoint.z: {hit.point.z}");
 
                 //LabelCanvas.planeDistance = Mathf.Abs(hit.point.z - RSTransform.position.z);
                 //LabelCanvas.planeDistance = hit.distance;
-                float distz = hit.point.z - RSTransform.position.z;
+
+                //float distz = Vector3.Distance(RSTransform.position, hit.point);
+                float distz = RSTransform.InverseTransformPoint(hit.point).z;
 
                 Vector2 startPos = labelInstanceInfo.startPos;
                 Vector2 endPos = labelInstanceInfo.endPos;
@@ -208,10 +193,11 @@ public class LabelManagerScript : MonoBehaviour
 
 
                 //LabelCanvas.renderMode = RenderMode.WorldSpace;
+                LabelCanvas.transform.localPosition = new Vector3(0, 0, distz);
                 LabelCanvas.transform.localScale = new Vector3(0.002120921f * distz, 0.002120921f * distz, 0);
-                LabelCanvas.transform.localPosition = new Vector3(0, 0, distz + 0.01f);
 
-                StartCoroutine(DeactivateObjectTimer(labelInstance));
+                GameObject targetObjectInstance = Instantiate(targetObject, hit.point, transform.rotation, RSTransform);
+                StartCoroutine(DeactivateObjectTimer(labelInstance, targetObjectInstance));
             }
         }
     }
@@ -228,11 +214,12 @@ public class LabelManagerScript : MonoBehaviour
         TextMesh.text = className;
     }
 
-    IEnumerator DeactivateObjectTimer(GameObject obj)
+    IEnumerator DeactivateObjectTimer(GameObject obj, GameObject targetObjectInstance)
     {
         yield return new WaitForSeconds(0.1f);
         //obj.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
         obj.SetActive(false);
+        Destroy(targetObjectInstance);
     }
 
     bool raycastTrue = false;
