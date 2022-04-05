@@ -194,7 +194,7 @@ public class LabelManagerScript : MonoBehaviour
 
                 //LabelCanvas.renderMode = RenderMode.WorldSpace;
                 LabelCanvas.transform.localPosition = new Vector3(0, 0, distz);
-                LabelCanvas.transform.localScale = new Vector3(0.002120921f * distz, 0.002120921f * distz, 0);
+                LabelCanvas.transform.localScale = new Vector3(0.002120921f * distz, 0.002120921f * distz, 1);
 
                 GameObject targetObjectInstance = Instantiate(targetObject, hit.point, transform.rotation, RSTransform);
                 StartCoroutine(DeactivateObjectTimer(labelInstance, targetObjectInstance));
