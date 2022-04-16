@@ -11963,6 +11963,28 @@ Transform:
   m_Father: {fileID: 506706250}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &863932046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0d3e2fcd636d0243820f1bebf6e167b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handleMaterial: {fileID: 2100000, guid: 986558eab447a9847bbe138149edc1b4, type: 2}
+  handleGrabbedMaterial: {fileID: 2100000, guid: bf37b5eab60b288498d02fd524325d10, type: 2}
+  handlePrefab: {fileID: 100000, guid: 6fcd4c9c53bfcb94b8c314ab6865ddd4, type: 3}
+  handleSize: 0.016
+  colliderPadding: {x: 0.016, y: 0.016, z: 0.016}
+  drawTetherWhenManipulating: 1
+  handlesIgnoreCollider: {fileID: 0}
+  handleSlatePrefab: {fileID: 0}
+  showScaleHandles: 1
+  scaleBehavior: 0
 --- !u!4 &875388614 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d02c3fcf4709283479e5f213e81ca600, type: 3}
@@ -15646,6 +15668,7 @@ GameObject:
   - component: {fileID: 1303737166}
   - component: {fileID: 1303737170}
   - component: {fileID: 1303737165}
+  - component: {fileID: 1303737171}
   m_Layer: 0
   m_Name: RealSenseModel
   m_TagString: Untagged
@@ -15674,7 +15697,7 @@ MonoBehaviour:
   boxPadding: {x: 0, y: 0, z: 0}
   boxDisplayConfiguration: {fileID: 1713046675}
   linksConfiguration: {fileID: 0}
-  scaleHandlesConfiguration: {fileID: 0}
+  scaleHandlesConfiguration: {fileID: 863932046}
   rotationHandlesConfiguration: {fileID: 775343754}
   translationHandlesConfiguration: {fileID: 1305384685}
   handleProximityEffectConfiguration: {fileID: 1873218483}
@@ -15804,6 +15827,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.1, y: 0.1, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1303737171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1303737164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 820f94d57893bf843a0cd6d93313fe6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handType: 3
+  proximityType: 3
+  scaleMinimum: 1
+  scaleMaximum: 1
+  relativeToInitialState: 1
 --- !u!114 &1305384685
 MonoBehaviour:
   m_ObjectHideFlags: 0
