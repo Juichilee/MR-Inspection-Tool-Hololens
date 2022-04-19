@@ -66,10 +66,12 @@ namespace Unity.RenderStreaming.Signaling
 
         private void OnDetection(SocketIOResponse e)
         {
-            //var f = e.get
-            string json = e.ToString();
-            var content = json.Substring(1, json.Length - 2);
-            LabelManagerScript.SharedInstance.ProcessLabelJSON(content);
+            if (LabelManagerScript.SharedInstance.receiveFrameReady)
+            {
+                string json = e.ToString();
+                var content = json.Substring(1, json.Length - 2);
+                LabelManagerScript.SharedInstance.GetAndProcessLabelJSON(content);
+            }
         }
 
         private void WSCreate()

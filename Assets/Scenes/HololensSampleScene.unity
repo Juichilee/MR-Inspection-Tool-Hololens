@@ -14643,6 +14643,7 @@ MonoBehaviour:
   RSCameraView: {fileID: 1272544361}
   targetObject: {fileID: 31958751393264693, guid: 8cf67b87c6d897444803f2bcab340bbd, type: 3}
   textureSize: {x: 0, y: 0}
+  receiveFrameReady: 1
 --- !u!114 &1202283659
 MonoBehaviour:
   m_ObjectHideFlags: 0

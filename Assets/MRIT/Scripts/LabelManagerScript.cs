@@ -18,16 +18,19 @@ public class LabelManagerScript : MonoBehaviour
 
     public Vector2 textureSize = new Vector2(512, 512);
 
+    // Queue for holding LabelInstanceInfos for a single frame
+    Queue<LabelInstanceInfo> frameQueue;
+
     private void Awake()
     {
         SharedInstance = this;
         RSCameraView.aspect = 1.0f;
     }
+
     // Start is called before the first frame update
     void Start()
     {
-        labelInstanceInfo = new LabelInstanceInfo(new Vector2(), new Vector2(), new Vector3(), new Vector2(), "");
-
+        frameQueue = new Queue<LabelInstanceInfo>();
         textureSize = InputManager._InputManagerInstance.streamingSize;
         pooledObjects = new List<GameObject>();
 
@@ -37,8 +40,6 @@ public class LabelManagerScript : MonoBehaviour
             tmp = Instantiate(objectToPool);
             tmp.SetActive(false);
             tmp.transform.SetParent(RSTransform);
-            //tmp.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
-            //tmp.GetComponent<Canvas>().worldCamera = RSCameraView;
             pooledObjects.Add(tmp);
         }
     }
@@ -55,8 +56,7 @@ public class LabelManagerScript : MonoBehaviour
         return null;
     }
 
-    LabelInstanceInfo labelInstanceInfo;
-    struct LabelInstanceInfo
+    public struct LabelInstanceInfo
     {
         public Vector2 startPos;
         public Vector2 endPos;
@@ -77,25 +77,32 @@ public class LabelManagerScript : MonoBehaviour
     }
 
     bool stopProcess = false;
-    //int labelCount = 0;
-    public void ProcessLabelJSON(string content)
+    public bool receiveFrameReady = true;
+
+    // When ready, onDetection sends a single frame to this function
+    public void GetAndProcessLabelJSON(string content)
     {
-        if (!stopProcess)
+        if (!stopProcess && receiveFrameReady)
         {
-            //LabelInfo frame = JsonUtility.FromJson<LabelInfo>(content);
+            // Wait until the current frame is done processing before receiving any more frames
+            receiveFrameReady = false;
+
             var frame = JsonConvert.DeserializeObject<LabelInfo>(content);
             string[] pred_classes = frame.pred_classes;
             float[] scores = frame.scores;
             float[][] boxes = frame.boxes;
 
-            Debug.Log($"JSON String: {content}");
+            //Debug.Log($"JSON String: {content}");
 
             for (int i = 0; i < pred_classes.Length; i++)
             {
+                // Create new labelInstanceInfo
+                LabelInstanceInfo labelInstanceInfo = new LabelInstanceInfo(new Vector2(), new Vector2(), new Vector3(), new Vector2(), "");
+
                 labelInstanceInfo.className = pred_classes[i];
                 float[] boxPositions = boxes[i];
 
-                Debug.Log($"BEFORE PredClass: {labelInstanceInfo.className}, BoxPos1:{boxPositions[0]} , BoxPos2:{boxPositions[1]}, BoxPos3:{boxPositions[2]}, BoxPos4:{boxPositions[3]}");
+                //Debug.Log($"BEFORE PredClass: {labelInstanceInfo.className}, BoxPos1:{boxPositions[0]} , BoxPos2:{boxPositions[1]}, BoxPos3:{boxPositions[2]}, BoxPos4:{boxPositions[3]}");
 
                 float startPosX = boxPositions[0];
                 float startPosY = textureSize.y - boxPositions[3];
@@ -103,7 +110,7 @@ public class LabelManagerScript : MonoBehaviour
                 float endPosX = boxPositions[2];
                 float endPosY = textureSize.y - boxPositions[1];
 
-                Debug.Log($"AFTER PredClass: {labelInstanceInfo.className}, BoxPos1:{startPosX} , BoxPos2:{startPosY}, BoxPos3:{endPosX}, BoxPos4:{endPosY}");
+                //Debug.Log($"AFTER PredClass: {labelInstanceInfo.className}, BoxPos1:{startPosX} , BoxPos2:{startPosY}, BoxPos3:{endPosX}, BoxPos4:{endPosY}");
 
                 labelInstanceInfo.startPos.x = startPosX;
                 labelInstanceInfo.startPos.y = startPosY;
@@ -117,36 +124,26 @@ public class LabelManagerScript : MonoBehaviour
                 int xMidpoint = (int)CalculateMidPoint(startPosX, endPosX);
                 int yMidpoint = (int)CalculateMidPoint(startPosY, endPosY);
 
-                Debug.Log($"MidPointX: {xMidpoint}, MidPointY:{yMidpoint}");
+                //Debug.Log($"MidPointX: {xMidpoint}, MidPointY:{yMidpoint}");
 
                 labelInstanceInfo.raycastPoint.x = xMidpoint;
                 labelInstanceInfo.raycastPoint.y = yMidpoint;
-                //raycastPoint.x = xMidpoint;
-                //raycastPoint.y = yMidpoint;
-                //raycastPoint.z = 0;
 
-                Debug.Log("Raycasting");
-                raycastTrue = true;
+                frameQueue.Enqueue(labelInstanceInfo);
             }
         }
     }
-
-    //public float InvertYPos(float pos)
-    //{
-    //    return textureSize.y - pos;
-    //}
 
     public float CalculateMidPoint(float startPos, float endPos)
     {
         return startPos + ((endPos - startPos) / 2);
     }
 
-    public void TextureToWorldRaycast(Vector3 texturePos)
+    public void TextureToWorldRaycast(LabelInstanceInfo labelInstanceInfo)
     {
         RaycastHit hit;
-        Ray labelRay = RSCameraView.ScreenPointToRay(texturePos);
+        Ray labelRay = RSCameraView.ScreenPointToRay(labelInstanceInfo.raycastPoint);
 
-        //Vector3 start = RSCameraView.transform.position;
         Vector3 start = RSTransform.position;
 
         Vector3 end = labelRay.GetPoint(1000f);
@@ -171,13 +168,6 @@ public class LabelManagerScript : MonoBehaviour
                 RectTransform TextRect = Text.GetComponent<RectTransform>();
                 TMP_Text TextMesh = Text.GetComponent<TMP_Text>();
 
-                //LabelCanvas.planeDistance = Mathf.Abs(hit.point.z - RSCameraView.transform.position.z);
-                //Debug.Log($"HitPoint.z: {hit.point.z}");
-
-                //LabelCanvas.planeDistance = Mathf.Abs(hit.point.z - RSTransform.position.z);
-                //LabelCanvas.planeDistance = hit.distance;
-
-                //float distz = Vector3.Distance(RSTransform.position, hit.point);
                 float distz = RSTransform.InverseTransformPoint(hit.point).z;
 
                 Vector2 startPos = labelInstanceInfo.startPos;
@@ -186,13 +176,9 @@ public class LabelManagerScript : MonoBehaviour
                 string className = labelInstanceInfo.className;
 
                 SetRectTransform(RawImageRect, startPos.x, startPos.y, endPos.x, endPos.y);
-                //Vector2 size = new Vector2(endPos.x - startPos.x, endPos.y - startPos.y);
-                //Vector2 midPoint = startPos + (size / 2);
                 SetRectTransform(TextRect, startPos.x, startPos.y + size.y - 25, endPos.x, endPos.y);
                 SetLabelName(TextMesh, className);
 
-
-                //LabelCanvas.renderMode = RenderMode.WorldSpace;
                 LabelCanvas.transform.localPosition = new Vector3(0, 0, distz);
                 LabelCanvas.transform.localScale = new Vector3(0.002120921f * distz, 0.002120921f * distz, 1);
 
@@ -217,12 +203,11 @@ public class LabelManagerScript : MonoBehaviour
     IEnumerator DeactivateObjectTimer(GameObject obj, GameObject targetObjectInstance)
     {
         yield return new WaitForSeconds(0.1f);
-        //obj.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
         obj.SetActive(false);
         Destroy(targetObjectInstance);
     }
 
-    bool raycastTrue = false;
+    //bool raycastTrue = false;
 
     //public RectTransform testRect;
     //public RectTransform labelRect;
@@ -233,10 +218,14 @@ public class LabelManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (raycastTrue)
+        if (!receiveFrameReady)
         {
-            raycastTrue = false;
-            TextureToWorldRaycast(labelInstanceInfo.raycastPoint);
+            int frameSize = frameQueue.Count;
+            for(int i = 0; i < frameSize; i++)
+            {
+                TextureToWorldRaycast(frameQueue.Dequeue());
+            }
+            receiveFrameReady = true;
         }
 
         //Vector2 startPos = labelInstanceInfo.startPos;
