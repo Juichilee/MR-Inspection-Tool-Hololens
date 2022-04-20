@@ -66,6 +66,11 @@ public class VirtualCameraAdjustment : MonoBehaviour
             case "-y":
                 rotation.y -= val;
                 break;
+            case "flat":
+                rotation.x = 0;
+                rotation.y = 0;
+                rotation.z = 0;
+                break;
         }
         updateValue();
     }
