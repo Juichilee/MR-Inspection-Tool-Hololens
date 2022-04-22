@@ -5,8 +5,7 @@ using UnityEngine;
 public class VirtualCameraAdjustment : MonoBehaviour
 {
     public GameObject RSModel;
-    public float posVal;
-    public float rotVal;
+    public float val;
 
     Vector3 translation = new Vector3();
     Vector3 rotation = new Vector3();
@@ -15,14 +14,6 @@ public class VirtualCameraAdjustment : MonoBehaviour
     {
         RSModel.transform.Translate(translation);
         RSModel.transform.Rotate(rotation, Space.Self);
-
-        translation.x = 0;
-        translation.y = 0;
-        translation.z = 0;
-
-        rotation.x = 0;
-        rotation.y = 0;
-        rotation.z = 0;
     }
 
     public void changeTranslation(string axis)
@@ -30,23 +21,23 @@ public class VirtualCameraAdjustment : MonoBehaviour
         switch (axis)
         {
             case "x":
-                translation.x = posVal;
+                translation.x += val;
                 break;
             case "y":
-                translation.y = posVal;
+                translation.y += val;
                 break;
             case "z":
-                translation.z = posVal;
+                translation.z += val;
                 break;
 
             case "-x":
-                translation.x = -posVal;
+                translation.x -= val;
                 break;
             case "-y":
-                translation.y = -posVal;
+                translation.y -= val;
                 break;
             case "-z":
-                translation.z = -posVal;
+                translation.z -= val;
                 break;
         }
         updateValue();
@@ -57,26 +48,28 @@ public class VirtualCameraAdjustment : MonoBehaviour
         switch (axis)
         {
             case "z":
-                rotation.z = rotVal;
+                rotation.z += val;
                 break;
             case "x":
-                rotation.x = rotVal;
+                rotation.x += val;
                 break;
             case "y":
-                rotation.y = rotVal;
+                rotation.y += val;
                 break;
 
             case "-z":
-                rotation.z = -rotVal;
+                rotation.z -= val;
                 break;
             case "-x":
-                rotation.x = -rotVal;
+                rotation.x -= val;
                 break;
             case "-y":
-                rotation.y = -rotVal;
+                rotation.y -= val;
                 break;
             case "flat":
-                RSModel.transform.eulerAngles = rotation;
+                rotation.x = 0;
+                rotation.y = 0;
+                rotation.z = 0;
                 break;
         }
         updateValue();

@@ -16994,8 +16994,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RSModel: {fileID: 1303737164}
-  posVal: 0.001
-  rotVal: 1
+  val: 1
 --- !u!1 &1202626712
 GameObject:
   m_ObjectHideFlags: 0
@@ -17668,7 +17667,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1272544360}
   - component: {fileID: 1272544361}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: RSCameraView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17795,25 +17794,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -7677471772335586173, guid: d02c3fcf4709283479e5f213e81ca600, type: 3}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: -4817174828353845507, guid: d02c3fcf4709283479e5f213e81ca600, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 48476752b93b4fe43928c47beff02e28, type: 2}
-    - target: {fileID: -3290435782841587732, guid: d02c3fcf4709283479e5f213e81ca600, type: 3}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d02c3fcf4709283479e5f213e81ca600, type: 3}
       propertyPath: m_Name
       value: RealSense
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: d02c3fcf4709283479e5f213e81ca600, type: 3}
-      propertyPath: m_Layer
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d02c3fcf4709283479e5f213e81ca600, type: 3}
@@ -18196,7 +18183,7 @@ GameObject:
   - component: {fileID: 1303737170}
   - component: {fileID: 1303737165}
   - component: {fileID: 1303737171}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: RealSenseModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18285,8 +18272,8 @@ MonoBehaviour:
   twoHandedManipulationType: 3
   allowFarManipulation: 1
   useForcesForNearManipulation: 0
-  oneHandRotationModeNear: 1
-  oneHandRotationModeFar: 1
+  oneHandRotationModeNear: 0
+  oneHandRotationModeFar: 0
   releaseBehavior: 3
   transformSmoothingLogicType:
     reference: Microsoft.MixedReality.Toolkit.Utilities.DefaultTransformSmoothingLogic,
