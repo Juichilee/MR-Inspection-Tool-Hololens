@@ -16976,7 +16976,7 @@ MonoBehaviour:
   pooledObjects: []
   objectToPool: {fileID: 1599440114515164474, guid: 28fe874dd6fc6a043a5dff85c27dad9c, type: 3}
   AmountToPool: 100
-  RSTransform: {fileID: 1272544360}
+  RSTransform: {fileID: 1303737169}
   RSCameraView: {fileID: 1272544361}
   targetObject: {fileID: 31958751393264693, guid: 8cf67b87c6d897444803f2bcab340bbd, type: 3}
   textureSize: {x: 0, y: 0}
@@ -17724,7 +17724,7 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 2
-  m_TargetEye: 3
+  m_TargetEye: 0
   m_HDR: 1
   m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
@@ -18196,7 +18196,7 @@ GameObject:
   - component: {fileID: 1303737170}
   - component: {fileID: 1303737165}
   - component: {fileID: 1303737171}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: RealSenseModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
