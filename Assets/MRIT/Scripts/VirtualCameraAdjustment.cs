@@ -10,6 +10,7 @@ public class VirtualCameraAdjustment : MonoBehaviour
 
     Vector3 translation = new Vector3();
     Vector3 rotation = new Vector3();
+    Vector3 flatRot = new Vector3();
 
     public void updateValue()
     {
@@ -76,7 +77,9 @@ public class VirtualCameraAdjustment : MonoBehaviour
                 rotation.y = -rotVal;
                 break;
             case "flat":
-                RSModel.transform.eulerAngles = rotation;
+                flatRot.y = RSModel.transform.eulerAngles.y;
+                RSModel.transform.eulerAngles = flatRot;
+
                 break;
         }
         updateValue();
