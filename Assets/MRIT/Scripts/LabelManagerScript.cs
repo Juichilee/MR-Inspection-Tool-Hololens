@@ -217,14 +217,6 @@ public class LabelManagerScript : MonoBehaviour
         Destroy(targetObjectInstance);
     }
 
-    //bool raycastTrue = false;
-
-    //public RectTransform testRect;
-    //public RectTransform labelRect;
-    //public TMP_Text TextMesh;
-    //Vector2 startPos = new Vector2(0, 256);
-    //Vector2 endPos = new Vector2(256, 512);
-
     // Update is called once per frame
     void Update()
     {
@@ -235,20 +227,14 @@ public class LabelManagerScript : MonoBehaviour
             {
                 TextureToWorldRaycast(frameQueue.Dequeue());
             }
-            receiveFrameReady = true;
+            StartCoroutine(ReadyTimer());
+            
         }
+    }
 
-        //Vector2 startPos = labelInstanceInfo.startPos;
-        //Vector2 endPos = labelInstanceInfo.endPos;
-
-        //SetRectTransform(testRect, startPos.x, startPos.y, endPos.x, endPos.y);
-        ////Vector2 size = new Vector2(endPos.x - startPos.x, endPos.y - startPos.y);
-        //Vector2 size = new Vector2();
-        //size.x = endPos.x - startPos.x;
-        //size.y = endPos.y - startPos.y;
-
-        ////Vector2 midPoint = startPos + (size / 2);
-        //SetRectTransform(labelRect, startPos.x, startPos.y + size.y - 25, endPos.x, endPos.y);
-        //SetLabelName(TextMesh, "TestLabel");
+    IEnumerator ReadyTimer()
+    {
+        yield return new WaitForSeconds(0.5f);
+        receiveFrameReady = true;
     }
 }
