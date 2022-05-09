@@ -6,29 +6,11 @@ using Unity.RenderStreaming;
 
 public class InputManager : MonoBehaviour
 {
-    public static InputManager _InputManagerInstance;
-    //private VirtualCameraStreamer VirtualCameraStreamer;
-    //private RealSenseCameraStreamer RealCameraStreamer;
-
-    //public bool objectRecognitionModeOn = false;
-    //public bool virtualObjectRecognitionModeOn = false;
-    //public bool realSensePointCloudOverlayOn = false;
-
-    public Vector2Int streamingSize;
-    public Material inputMat;
-    public Material cropMat;
-    public Renderer image;
-    public Renderer cropImage;
-    public Renderer processedImage;
-    //public float depthThreshold;
-
+    [SerializeField, Tooltip("Streaming size should match display aspect ratio")]
+    private Vector2Int streamingSize; 
     private VideoStreamTrack track;
-
-    //private RenderTexture finalRenderTexture;
-
-    public Camera CropCamera;
-
-    bool trackAdded = false;
+    public Renderer image;
+    public Renderer crop;
 
     public static RenderTextureFormat GetSupportedRenderTextureFormat(UnityEngine.Rendering.GraphicsDeviceType type)
     {
@@ -48,62 +30,31 @@ public class InputManager : MonoBehaviour
         return RenderTextureFormat.Default;
     }
 
-    private void Awake()  //Used to initialize any variables or gams state before the game starts. Only called once
+    void Awake()
     {
-        _InputManagerInstance = this;
-        streamingSize = new Vector2Int(512, 512);
-
         // Get a valid RendertextureFormat
         var gfxType = SystemInfo.graphicsDeviceType;
-        RenderTextureFormat format = GetSupportedRenderTextureFormat(gfxType);
-        Debug.Log("RenderTextureFormat: " + format);
+        var format = GetSupportedRenderTextureFormat(gfxType);
 
-        //RenderTexture rend = (RenderTexture)inputMat.mainTexture;
-        //RenderTexture rend = new RenderTexture(streamingSize.x, streamingSize.y, 0, UnityEngine.Experimental.Rendering.GraphicsFormat.R8G8B8A8_UNorm);
-        RenderTexture rend = new RenderTexture(1280, 720, 0, UnityEngine.Experimental.Rendering.GraphicsFormat.B8G8R8A8_UNorm);
+        // Create a track from the RenderTexture
+        WebCamDevice[] devices = WebCamTexture.devices;
+        Debug.Log("Webcam available: " + devices[0].name);
+        WebCamTexture camTex = new WebCamTexture(devices[0].name);
 
-        inputMat.mainTexture = rend;
+        track = new VideoStreamTrack("video", camTex);
+        image.material.mainTexture = camTex;
+        camTex.Play();
 
-        Debug.Log("RenderTextureFormat: " + format);
-        Debug.Log("InputRTFormat: " + rend.graphicsFormat);
+        crop.material.mainTexture = camTex;
+        // cameraStreamer.targetTexture = rt;
 
-        //Color[] c = 
-        //RenderTexture processedRend = new RenderTexture(streamingSize.x, streamingSize.y, 0, UnityEngine.Experimental.Rendering.GraphicsFormat.B8G8R8A8_UNorm);
-        image.material = inputMat;
-        cropImage.material = inputMat;
-
-        RenderTexture cropRend = new RenderTexture(streamingSize.x, streamingSize.y, 0, UnityEngine.Experimental.Rendering.GraphicsFormat.B8G8R8A8_UNorm);
-        CropCamera.targetTexture = cropRend;
-        cropMat.mainTexture = cropRend;
-
-        processedImage.material = cropMat;
-
-        //VirtualCameraStreamer = this.GetComponent<VirtualCameraStreamer>();
-        //RealCameraStreamer = this.GetComponent<RealSenseCameraStreamer>();
-
+        //track = cameraStreamer.CaptureStreamTrack(streamingSize.x, streamingSize.y, 1000000);
+        //image.material.mainTexture = track.Texture;
+        RenderStreaming.Instance.AddVideoStreamTrack(track);
     }
 
-    // Start is called before the first frame update. Used to pass information between referenced scripts
-    void Start()
+    void OnDisable()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (!trackAdded)
-        {
-            track = new VideoStreamTrack("video", cropMat.mainTexture);
-            RenderStreaming.Instance.AddVideoStreamTrack(track);
-            trackAdded = true;
-        }
-        //Debug.Log("MouisePos: "+ Input.mousePosition);
-        
-    }
-
-    void SendRenderTextureToWebRTCServer()
-    {
-
+        //RenderStreaming.Instance.RemoveVideoStreamTrack(track);
     }
 }

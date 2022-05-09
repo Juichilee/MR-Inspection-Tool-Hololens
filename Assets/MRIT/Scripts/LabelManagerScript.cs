@@ -31,7 +31,6 @@ public class LabelManagerScript : MonoBehaviour
     void Start()
     {
         frameQueue = new Queue<LabelInstanceInfo>();
-        textureSize = InputManager._InputManagerInstance.streamingSize;
         pooledObjects = new List<GameObject>();
 
         GameObject tmp;

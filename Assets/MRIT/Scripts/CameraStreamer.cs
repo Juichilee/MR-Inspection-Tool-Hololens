@@ -6,9 +6,6 @@ using Microsoft.MixedReality.Toolkit.UI;
 public class CameraStreamer : MonoBehaviour
 {
     public Camera RSCameraView;
-    public Renderer rend;
-    public Material rsMat;
-
 
     [Range(0, 1)]
     [SerializeField]
@@ -35,7 +32,7 @@ public class CameraStreamer : MonoBehaviour
 
     private void Start()
     {
-        rend.material = rsMat;
+
     }
 
     private void Update()
