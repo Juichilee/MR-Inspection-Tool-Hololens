@@ -7275,7 +7275,7 @@ PrefabInstance:
     - target: {fileID: 7307063430618434848, guid: 1093263a89abe47499cccf7dcb08effb, type: 3}
       propertyPath: OnValueUpdated.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1202283657}
+      objectReference: {fileID: 0}
     - target: {fileID: 7307063430618434848, guid: 1093263a89abe47499cccf7dcb08effb, type: 3}
       propertyPath: OnValueUpdated.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -16026,15 +16026,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1202283653}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d17f761a4aafbe478781b2f650a9894, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f21501f2162b504c832373db54a3d50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rsTF: {fileID: 114613456056826128, guid: 6f1f4d0a8f3f052419ca9059315d7fe0, type: 2}
   RSCameraView: {fileID: 1272544361}
   rend: {fileID: 163533244}
   rsMat: {fileID: 2100000, guid: 054de4d9b22596d4a8c4f63dd32692a8, type: 2}
-  thresholdVal: 0.5
-  fovVal: 0.318
+  fovVal: 0.31843576
 --- !u!114 &1202283658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28758,7 +28756,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1202283657}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: RealSenseCameraStreamer, Assembly-CSharp
         m_MethodName: setFovVal
         m_Mode: 0
