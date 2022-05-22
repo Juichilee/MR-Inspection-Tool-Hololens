@@ -16,9 +16,11 @@ public class InputManager : MonoBehaviour
 
     public Vector2Int streamingSize;
     public Material inputMat;
+    public Material virtualInputMat;
     public Material cropMat;
     public Renderer image;
     public Renderer cropImage;
+    public Renderer virtualImage;
     public Renderer processedImage;
     //public float depthThreshold;
 
@@ -71,6 +73,7 @@ public class InputManager : MonoBehaviour
         //RenderTexture processedRend = new RenderTexture(streamingSize.x, streamingSize.y, 0, UnityEngine.Experimental.Rendering.GraphicsFormat.B8G8R8A8_UNorm);
         image.material = inputMat;
         cropImage.material = inputMat;
+        virtualImage.material = virtualInputMat;
 
         RenderTexture cropRend = new RenderTexture(streamingSize.x, streamingSize.y, 0, UnityEngine.Experimental.Rendering.GraphicsFormat.B8G8R8A8_UNorm);
         CropCamera.targetTexture = cropRend;
