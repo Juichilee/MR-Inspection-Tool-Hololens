@@ -16826,6 +16826,7 @@ MonoBehaviour:
   RSTransform: {fileID: 1303737169}
   RSCameraView: {fileID: 1272544361}
   targetObject: {fileID: 31958751393264693, guid: 8cf67b87c6d897444803f2bcab340bbd, type: 3}
+  hitMarkerSize: 0.01
   textureSize: {x: 0, y: 0}
   receiveFrameReady: 1
 --- !u!114 &1202283659
@@ -30105,7 +30106,7 @@ MonoBehaviour:
   tickMarks: {fileID: 0}
   thumbVisuals: {fileID: 0}
   sliderAxis: 1
-  sliderStartDistance: -0.035787567
+  sliderStartDistance: -0.03578747
   sliderEndDistance: 0.03569735
   OnValueUpdated:
     m_PersistentCalls:

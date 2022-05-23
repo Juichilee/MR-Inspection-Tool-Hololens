@@ -14,7 +14,8 @@ public class LabelManagerScript : MonoBehaviour
     public Transform RSTransform;
     public Camera RSCameraView;
 
-    public GameObject targetObject;
+    //public GameObject targetObject;
+    public float hitMarkerSize = 1.0f;
 
     public Vector2 textureSize = new Vector2(512, 512);
 
@@ -182,15 +183,26 @@ public class LabelManagerScript : MonoBehaviour
                 SetRectTransform(TextRect, startPos.x, startPos.y + size.y - 25, endPos.x, endPos.y);
                 SetLabelName(TextMesh, className);
 
+                // Get Hitmaker gameobject in LabelInstance
+                GameObject hitMarker = labelInstance.transform.GetChild(0).GetChild(0).gameObject;
+
+                float xVal = (endPos.x - startPos.x) * (hitMarkerSize * 0.09765625f); // Default (25/256)
+                float yVal = (endPos.y - startPos.y) * (hitMarkerSize * 0.09765625f);
+                float boxScale = (xVal + yVal)/2.0f;
+
+                hitMarker.transform.localScale = new Vector3(boxScale, boxScale, boxScale);
+
                 float fov = RSCameraView.fieldOfView;
                 LabelCanvas.transform.localPosition = new Vector3(0, 0, distz);
-                LabelCanvas.transform.localScale = new Vector3(0.000037209f * fov * distz, 0.000037209f * fov * distz, 1);
+                LabelCanvas.transform.localScale = new Vector3(0.000037209f * fov * distz, 0.000037209f * fov * distz, 0.000037209f * fov * distz);
+
                 //LabelCanvas.transform.localScale = new Vector3(0.002120921f * distz, 0.002120921f * distz, 1);
 
-                GameObject targetObjectInstance = Instantiate(targetObject, hit.point, transform.rotation, RSTransform);
+                //GameObject targetObjectInstance = Instantiate(targetObject, hit.point, transform.rotation, RSTransform);
+                //targetObjectInstance.transform.localScale = new Vector3(targetObjectInstance.transform.localScale.x * boxScale * fov * distz, targetObjectInstance.transform.localScale.y * boxScale * fov * distz, targetObjectInstance.transform.localScale.z * boxScale * fov * distz); ;
 
                 //tmp.GetComponent<Canvas>().worldCamera = RSCameraView;
-                StartCoroutine(DeactivateObjectTimer(labelInstance, targetObjectInstance, LabelCanvas));
+                StartCoroutine(DeactivateObjectTimer(labelInstance, LabelCanvas));
             }
         }
     }
@@ -207,14 +219,14 @@ public class LabelManagerScript : MonoBehaviour
         TextMesh.text = className;
     }
 
-    IEnumerator DeactivateObjectTimer(GameObject obj, GameObject targetObjectInstance, Canvas LabelCanvas)
+    IEnumerator DeactivateObjectTimer(GameObject obj, Canvas LabelCanvas)
     {
         //LabelCanvas.renderMode = RenderMode.ScreenSpaceCamera;
         obj.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         //LabelCanvas.GetComponent<Canvas>().renderMode = RenderMode.WorldSpace;
         obj.SetActive(false);
-        Destroy(targetObjectInstance);
+        
     }
 
     // Update is called once per frame
