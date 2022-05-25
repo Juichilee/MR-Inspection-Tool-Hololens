@@ -29,15 +29,15 @@ We *recommend* the following software for debugging and modification:
 
 ## Installation - Client
 
-To open the project, clone the repo:
+1. To open the project, clone the repo:
 
 ```git clone https://github.com/Juichilee/MR-Inspection-Tool-Hololens```
 
-Use GitHub Desktop or the command line to switch branches:
+2. Use GitHub Desktop or the command line to switch branches:
 
 ```git checkout InputManager-B```
 
-Your files will be updated. This was our last working directory when we finished our capstone.
+3. Your files will be updated. This was our last working directory when we finished our capstone.
 
 You'll need to add this project via the Open > Add Project From Disk in the Projects tab of the Unity Hub.
 
@@ -45,7 +45,26 @@ Add the root directory created by the clone operation.
 
 ## Installation - Server
 
+1. ```git clone https://github.com/[REPO FOR MACHINE LEARNING SERVER]```
+2. ```docker compose up```
+3. The machine learning server will start and await a connection.
+
+## Running the Client and Server
+
+1. Open both the Unity project and the directory of the machine learning server repo in PowerShell.
+2. Connect the Intel RealSense camera to the PC. Be sure to use the provided USB-C to USB-A cable.
+3. In PowerShell: ```docker compose up```
+
+This will start the server and print status information. It is now awaiting a connection.
+
+4. In the Unity Client, enter Game Mode by pressing the Play button at the top of the screen, and then enter the keys ```Z``` and ```X``` in quick succession.
+5. A connection will be initiated. In some cases, the server will refuse to connect. While keeping the client running, quit (Control + C) to relaunch the server and restart the connection process.
+
+## Adding the HoloLens 2
+
 1. 
-2. 
-3.
-4. 
+
+## Troubleshooting
+
+
+
