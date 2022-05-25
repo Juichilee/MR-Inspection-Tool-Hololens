@@ -4,7 +4,7 @@ Hello! Welcome to our project, a mixed reality inspection tool for Industry 4.0 
 The project is a proof of concept demonstrating a functional connection and information pipeline between Unity, a machine learning server,
 an Intel RealSense D455 Depth Camera, and a Microsoft HoloLens 2, as well as visualization and interactivity with the pipeline.
 
-## Installation - Client
+## Requirements
 
 You will ***need*** the following software:
 
@@ -27,6 +27,7 @@ We *recommend* the following software for debugging and modification:
 - Any text editor, preferably Visual Studio (this is typically bundled with the Unity UWP development package).
 - The full Intel RealSense SDK 2.0 and its Unity Wrapper.
 
+## Installation - Client
 
 To open the project, clone the repo:
 
