@@ -207,6 +207,16 @@ public class LabelManagerScript : MonoBehaviour
         }
     }
 
+    public void flipProjection(float value)
+    {
+        for(int i = 0; i < pooledObjects.Count; i++)
+        {
+            GameObject labelInstance = pooledObjects[i];
+            labelInstance.transform.Rotate(new Vector3(0, 0, value));
+            //labelInstance.transform.rotation = Quaternion.Euler(labelInstance.transform.rotation.x, labelInstance.transform.rotation.y, value);
+        }
+    }
+
     public void SetRectTransform(RectTransform RawImageRect, float startPosX, float startPosY, float endPosX, float endPosY)
     {
 

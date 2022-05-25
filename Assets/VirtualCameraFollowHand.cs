@@ -11,6 +11,7 @@ public class VirtualCameraFollowHand : MonoBehaviour
 
     SolverHandler solverHandler;
     public bool activateFollow = false;
+    public bool flipProjection = false;
     bool alreadyActive = false;
     Transform originalParent;
     //Vector3 offset;
@@ -25,6 +26,16 @@ public class VirtualCameraFollowHand : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            LabelManagerScript.SharedInstance.flipProjection(180);
+        }
+        /*if (flipProjection)
+        {
+            LabelManagerScript.SharedInstance.flipProjection(180);
+            flipProjection = false;
+        }*/
+
         var handJointService = CoreServices.GetInputSystemDataProvider<IMixedRealityHandJointService>();
         if (activateFollow && handJointService != null)
         {
@@ -42,8 +53,11 @@ public class VirtualCameraFollowHand : MonoBehaviour
         }
         else
         {
-            this.transform.parent = originalParent;
-            alreadyActive = false;
+            if(alreadyActive == true)
+            {
+                this.transform.parent = originalParent;
+                alreadyActive = false;
+            }
         }
     }
 }
