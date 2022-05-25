@@ -23,6 +23,10 @@ We *recommend* the following software for debugging and modification:
 To open the project, clone the repo:
 ```git clone https://github.com/Juichilee/MR-Inspection-Tool-Hololens```
 
+Either use GitHub Desktop or the command line to switch branches:
+```git checkout InputManager-B```
+Your files will be updated. This was our last working directory when we finished our capstone.
+
 You'll need to add this project via the Open > Add Project From Disk in the Projects tab of the Unity Hub.
 Add using the root directory created by the clone operation. 
 
