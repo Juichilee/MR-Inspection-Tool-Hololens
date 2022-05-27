@@ -209,6 +209,7 @@ public class LabelManagerScript : MonoBehaviour
 
     public void flipProjection(float value)
     {
+        InputManager._InputManagerInstance.CropCamera.gameObject.transform.Rotate(new Vector3(0, 0, value));
         for(int i = 0; i < pooledObjects.Count; i++)
         {
             GameObject labelInstance = pooledObjects[i];
