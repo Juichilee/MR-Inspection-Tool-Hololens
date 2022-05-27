@@ -66,6 +66,12 @@ This will start the server and print status information. It is now awaiting a co
 
 ## Troubleshooting
 
+## Unrealized Features
+Some features that we would have worked on, had we had the time:
+- Make the Intel RealSense image input independent of the hardware, e.g. make a generic webcam handler.
+- Improve the calibration process.
+- Allow another camera to supply its own coordinates to the system, eliminating the need to calibrate entirely.
+
 
 ## Extending to Other Projects
 
