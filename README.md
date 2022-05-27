@@ -67,4 +67,11 @@ This will start the server and print status information. It is now awaiting a co
 ## Troubleshooting
 
 
+## Extending to Other Projects
+
+Some other projects that could build on our work include:
+- A full-fledged inspection tool that uses the output of the machine learning server to recognize steps in an inspection process.
+- A testbed for a machine learning server to improve the reliability of object recognition.
+- A training tool for new workers in an industrial environment that recognizes certain motions via a supplied dataset.
+- Integrating the object recognition with multiple cameras.
 
