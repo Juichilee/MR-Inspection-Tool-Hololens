@@ -74,6 +74,7 @@ Some features that we would have worked on, had we had the time:
 - Make the Intel RealSense image input independent of the hardware, e.g. make a generic webcam handler.
 - Improve the calibration process.
 - Allow another camera to supply its own coordinates to the system, eliminating the need to calibrate entirely.
+- Autonomous recognition of manufacturing defects or incorrectly configured items based on a training dataset.
 
 
 ## Extending to Other Projects
