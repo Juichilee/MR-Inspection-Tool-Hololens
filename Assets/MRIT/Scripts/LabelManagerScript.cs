@@ -151,7 +151,12 @@ public class LabelManagerScript : MonoBehaviour
         Vector3 end = labelRay.GetPoint(1000f);
 
         Debug.DrawRay(start, end, Color.red);
+        int ignoreRaycast = 1 << 2;
+        int ignoreCamera = 1 << 8;
+        int layerMask = ignoreCamera + ignoreRaycast;
+        
         if (Physics.Raycast(labelRay, out hit, Physics.IgnoreRaycastLayer))
+        //if (Physics.Raycast(labelRay, out hit, layerMask))
         {
             GameObject labelInstance = GetPooledObject(pooledObjects);
 

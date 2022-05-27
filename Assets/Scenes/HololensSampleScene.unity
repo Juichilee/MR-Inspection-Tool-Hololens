@@ -14823,7 +14823,7 @@ MonoBehaviour:
   drawTetherWhenManipulating: 1
   handlesIgnoreCollider: {fileID: 0}
   handleSlatePrefab: {fileID: 0}
-  showScaleHandles: 1
+  showScaleHandles: 0
   scaleBehavior: 0
 --- !u!1 &871315362
 GameObject:
@@ -19400,7 +19400,7 @@ MonoBehaviour:
   rotationHandlesConfiguration: {fileID: 775343754}
   translationHandlesConfiguration: {fileID: 1305384685}
   handleProximityEffectConfiguration: {fileID: 1873218483}
-  hideElementsInInspector: 1
+  hideElementsInInspector: 0
   smoothingActive: 0
   rotateLerpTime: 0.001
   scaleLerpTime: 0.001
