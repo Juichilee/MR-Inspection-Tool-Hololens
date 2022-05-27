@@ -66,6 +66,9 @@ This will start the server and print status information. It is now awaiting a co
 
 ## Troubleshooting
 
+- Some firewalls and WiFi networks may be incompatible with the Holographic Remoting protocol used by our project. For instance, only the visitor WiFi or Robotics Wifi at our lab at OSU worked for this project. If you experience repeated failed connections or degraded performance, such as accumulating lag, switch networks.
+
+
 ## Unrealized Features
 Some features that we would have worked on, had we had the time:
 - Make the Intel RealSense image input independent of the hardware, e.g. make a generic webcam handler.
