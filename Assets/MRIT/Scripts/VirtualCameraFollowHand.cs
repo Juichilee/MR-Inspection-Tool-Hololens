@@ -62,6 +62,7 @@ public class VirtualCameraFollowHand : MonoBehaviour
                 realSenseBC.enabled = true;
                 LabelManagerScript.SharedInstance.flipProjection(180);
                 this.transform.parent = originalParent;
+                transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);  
                 alreadyActive = false;
             }
         }

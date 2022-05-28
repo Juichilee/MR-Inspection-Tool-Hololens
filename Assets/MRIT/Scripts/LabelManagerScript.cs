@@ -21,6 +21,8 @@ public class LabelManagerScript : MonoBehaviour
 
     // Queue for holding LabelInstanceInfos for a single frame
     Queue<LabelInstanceInfo> frameQueue;
+    GameObject rigRoot;
+    Transform rigT;
 
     private void Awake()
     {
@@ -151,7 +153,9 @@ public class LabelManagerScript : MonoBehaviour
         Vector3 end = labelRay.GetPoint(1000f);
 
         Debug.DrawRay(start, end, Color.red);
-        if (Physics.Raycast(labelRay, out hit, Physics.IgnoreRaycastLayer))
+        int raycastLayer = (1 << 8) + (1 << 2);
+        raycastLayer = ~raycastLayer;
+        if (Physics.Raycast(labelRay, out hit, 999, raycastLayer))
         {
             GameObject labelInstance = GetPooledObject(pooledObjects);
 
@@ -194,7 +198,7 @@ public class LabelManagerScript : MonoBehaviour
 
                 float fov = RSCameraView.fieldOfView;
                 LabelCanvas.transform.localPosition = new Vector3(0, 0, distz);
-                LabelCanvas.transform.localScale = new Vector3(0.000037209f * fov * distz, 0.000037209f * fov * distz, 0.000037209f * fov * distz);
+                LabelCanvas.transform.localScale = new Vector3(0.000037209f * fov * distz, 0.000037209f * fov * distz, 0);
 
                 //LabelCanvas.transform.localScale = new Vector3(0.002120921f * distz, 0.002120921f * distz, 1);
 
@@ -252,6 +256,24 @@ public class LabelManagerScript : MonoBehaviour
             }
             StartCoroutine(ReadyTimer());
             
+        }
+
+        // Set rigRoot and its children to Ignore Camera layer (8)
+        
+        if(rigT = RSTransform.Find("rigRoot"))
+        {
+            rigRoot = rigT.gameObject;
+            rigRoot.layer = 8;
+            foreach(Transform s in rigRoot.GetComponentsInChildren<Transform>())
+            {
+                GameObject rigRootChild = s.gameObject;
+                rigRootChild.layer = 8;
+                foreach(Transform t in rigRootChild.GetComponentsInChildren<Transform>())
+                {
+                    GameObject rigRootChildChild = t.gameObject;
+                    rigRootChildChild.layer = 8;
+                }
+            }
         }
     }
 
