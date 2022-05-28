@@ -10,20 +10,7 @@ public class RealSenseCameraStreamer : MonoBehaviour
     public Camera RSCameraView;
     public Renderer rend;
     public Material rsMat;
-
-    [Range(0, 1)]
-    [SerializeField]
-    private float thresholdVal = 0.5f;
-    public float ThresholdVal
-    {
-        get { return thresholdVal; }
-        set
-        {
-            thresholdVal = value;
-            OnUpdate();
-        }
-    }
-    //
+    
     [Range(0, 1)]
     [SerializeField]
     private float fovVal = 0.31843575f;
@@ -39,13 +26,7 @@ public class RealSenseCameraStreamer : MonoBehaviour
 
     public void OnUpdate()
     {
-        rsTF.SetMaxDistance(thresholdVal * 4);
         RSCameraView.fieldOfView = fovVal * 179;
-    }
-
-    public void setThresholdVal(SliderEventData eventData)
-    {
-        ThresholdVal = eventData.NewValue;
     }
 
     public void setFovVal(SliderEventData eventData)
@@ -61,7 +42,6 @@ public class RealSenseCameraStreamer : MonoBehaviour
     private void Update()
     {
         // Debug Purpose
-        ThresholdVal = thresholdVal;
         FovVal = fovVal;
         //rend.material.mainTexture = rgbMat.mainTexture;
     }

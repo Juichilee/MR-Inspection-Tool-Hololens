@@ -46,16 +46,11 @@ public class VirtualCameraFollowHand : MonoBehaviour
             Transform jointTransform = handJointService.RequestJointTransform(TrackedHandJoint.Wrist, Handedness.Left);
             if (!alreadyActive)
             {
-
-                //offset = this.transform.position - jointTransform.position;
-                //rotationOffset = this.transform.localEulerAngles - jointTransform.localEulerAngles;
                 this.transform.parent = jointTransform;
                 realSenseOM.enabled = false;
                 realSenseBC.enabled = false;
                 LabelManagerScript.SharedInstance.flipProjection(180); // Flip Label projection 180
             }
-            //this.transform.position = jointTransform.position + offset;
-            //this.transform.localEulerAngles = jointTransform.localEulerAngles + rotationOffset;
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 180);  
             alreadyActive = true;
         }

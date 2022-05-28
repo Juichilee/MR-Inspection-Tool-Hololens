@@ -7,13 +7,6 @@ using Unity.RenderStreaming;
 public class InputManager : MonoBehaviour
 {
     public static InputManager _InputManagerInstance;
-    //private VirtualCameraStreamer VirtualCameraStreamer;
-    //private RealSenseCameraStreamer RealCameraStreamer;
-
-    //public bool objectRecognitionModeOn = false;
-    //public bool virtualObjectRecognitionModeOn = false;
-    //public bool realSensePointCloudOverlayOn = false;
-
     public Vector2Int streamingSize;
     public Material inputMat;
     public Material virtualInputMat;
@@ -22,12 +15,7 @@ public class InputManager : MonoBehaviour
     public Renderer cropImage;
     public Renderer virtualImage;
     public Renderer processedImage;
-    //public float depthThreshold;
-
     private VideoStreamTrack track;
-
-    //private RenderTexture finalRenderTexture;
-
     public Camera CropCamera;
 
     bool trackAdded = false;
@@ -60,8 +48,6 @@ public class InputManager : MonoBehaviour
         RenderTextureFormat format = GetSupportedRenderTextureFormat(gfxType);
         Debug.Log("RenderTextureFormat: " + format);
 
-        //RenderTexture rend = (RenderTexture)inputMat.mainTexture;
-        //RenderTexture rend = new RenderTexture(streamingSize.x, streamingSize.y, 0, UnityEngine.Experimental.Rendering.GraphicsFormat.R8G8B8A8_UNorm);
         RenderTexture rend = new RenderTexture(1280, 720, 0, UnityEngine.Experimental.Rendering.GraphicsFormat.B8G8R8A8_UNorm);
 
         inputMat.mainTexture = rend;
@@ -69,8 +55,6 @@ public class InputManager : MonoBehaviour
         Debug.Log("RenderTextureFormat: " + format);
         Debug.Log("InputRTFormat: " + rend.graphicsFormat);
 
-        //Color[] c = 
-        //RenderTexture processedRend = new RenderTexture(streamingSize.x, streamingSize.y, 0, UnityEngine.Experimental.Rendering.GraphicsFormat.B8G8R8A8_UNorm);
         image.material = inputMat;
         cropImage.material = inputMat;
         virtualImage.material = virtualInputMat;
@@ -81,15 +65,6 @@ public class InputManager : MonoBehaviour
 
         processedImage.material = cropMat;
 
-        //VirtualCameraStreamer = this.GetComponent<VirtualCameraStreamer>();
-        //RealCameraStreamer = this.GetComponent<RealSenseCameraStreamer>();
-
-    }
-
-    // Start is called before the first frame update. Used to pass information between referenced scripts
-    void Start()
-    {
-        
     }
 
     // Update is called once per frame
@@ -101,12 +76,6 @@ public class InputManager : MonoBehaviour
             RenderStreaming.Instance.AddVideoStreamTrack(track);
             trackAdded = true;
         }
-        //Debug.Log("MouisePos: "+ Input.mousePosition);
-        
     }
 
-    void SendRenderTextureToWebRTCServer()
-    {
-
-    }
 }

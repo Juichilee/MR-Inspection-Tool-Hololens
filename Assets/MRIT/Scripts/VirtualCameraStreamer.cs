@@ -5,17 +5,11 @@ using Unity.RenderStreaming;
 
 public class VirtualCameraStreamer : MonoBehaviour
 {
-    //[SerializeField, Tooltip("Streaming size should match display aspect ratio")]
     private Vector2Int streamingSize = new Vector2Int(512, 512);
 
     public Camera cameraStreamer;
     public Renderer image;
     public RenderTexture rt;
-
-    void Awake()
-    {
-        //cameraStreamer = GetComponent<Camera>();
-    }
 
     public float rotSpeed = 250;
     public float damping = 10;

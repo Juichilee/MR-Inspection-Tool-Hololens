@@ -9,8 +9,3 @@ public class LabelInfo
     public string[] pred_classes;
     public float[][] boxes;
 }
-
-//public class BoxPositions
-//{
-//    public float[] boxPositions;
-//}
