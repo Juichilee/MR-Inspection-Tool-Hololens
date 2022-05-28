@@ -43,9 +43,10 @@ We *recommend* the following software for debugging and modification:
 
 ## Installation - Server
 
-1. ```git clone https://github.com/[REPO FOR MACHINE LEARNING SERVER]```
-2. ```docker compose up```
-3. The machine learning server will start and await a connection.
+1. Contact Raffaele De Amicis for the GitHub repo details for the machine learning server.
+2. Verify your docker installation.
+3. ```docker compose up```
+4. The machine learning server will start and await a connection.
 
 ## Running the Client and Server
 
