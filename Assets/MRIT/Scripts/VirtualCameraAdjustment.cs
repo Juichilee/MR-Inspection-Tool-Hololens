@@ -88,24 +88,12 @@ public class VirtualCameraAdjustment : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        GameObject rigRoot;
-        if(rigRoot = RSModel.transform.Find("rigRoot").gameObject)
-        {
-            rigRoot.layer = 2;
-            foreach (Transform child in rigRoot.transform.GetComponentInChildren<Transform>())
-            {
-                child.gameObject.layer = 2;
-                foreach (Transform cchild in child.transform.GetComponentInChildren<Transform>())
-                {
-                    cchild.gameObject.layer = 2;
-                }
-            }
-        }
+        
     }
 }
