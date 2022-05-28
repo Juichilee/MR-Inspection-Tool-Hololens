@@ -33,15 +33,13 @@ We *recommend* the following software for debugging and modification:
 
 ```git clone https://github.com/Juichilee/MR-Inspection-Tool-Hololens```
 
-2. Use GitHub Desktop or the command line to switch branches:
+2. Your files will be updated. This was our last working directory when we finished our capstone.
 
-```git checkout InputManager-B```
+3. You'll need to add this project via the Open > Add Project From Disk in the Projects tab of the Unity Hub.
 
-3. Your files will be updated. This was our last working directory when we finished our capstone.
+4. Add the root directory created by the clone operation.
 
-You'll need to add this project via the Open > Add Project From Disk in the Projects tab of the Unity Hub.
-
-Add the root directory created by the clone operation.
+5. Open in Unity! If you get strange errors, double-check your version is 2020.3.20f1 LTS.
 
 ## Installation - Server
 
@@ -62,7 +60,7 @@ This will start the server and print status information. It is now awaiting a co
 
 ## Adding the HoloLens 2
 
-1. 
+Follow the instructions here to set up your HoloLens 2 for Unity development: https://docs.microsoft.com/en-us/windows/mixed-reality/develop/unity/unity-play-mode?tabs=openxr
 
 ## Troubleshooting
 
