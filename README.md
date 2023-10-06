@@ -1,8 +1,20 @@
 # MR-Inspection-Tool
 
+<img src="Showcase/Demo_Thumbnail.png" alt="thumbnail" width="700"/>
+
 Hello! Welcome to our project, a mixed reality inspection tool for Industry 4.0 environments.
 The project is a proof of concept demonstrating a functional connection and information pipeline between Unity, a machine learning server,
 an Intel RealSense D455 Depth Camera, and a Microsoft HoloLens 2, as well as visualization and interactivity with the pipeline.
+
+## Project Background
+<img src="Showcase/MR_Inspection%20Tool_Poster.jpg" alt="poster" width="700"/>
+
+## Demos
+### Extended Demo
+![Extended Demo](https://github.com/Juichilee/MR-Inspection-Tool-Hololens/blob/main/Showcase/Extended_Demo.mp4?raw=true)
+
+### Final Demo
+![Final Demo](https://github.com/Juichilee/MR-Inspection-Tool-Hololens/blob/main/Showcase/Final_Demo.mp4?raw=true)
 
 ## Requirements
 
