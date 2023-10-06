@@ -9,7 +9,7 @@ an Intel RealSense D455 Depth Camera, and a Microsoft HoloLens 2, as well as vis
 ## Project Background
 <img src="Showcase/MR_Inspection%20Tool_Poster.jpg" alt="poster" width="700"/>
 
-## Demos
+## Demo Videos (Download)
 ### Extended Demo
 ![Extended Demo](https://github.com/Juichilee/MR-Inspection-Tool-Hololens/blob/main/Showcase/Extended_Demo.mp4?raw=true)
 
